@@ -1,0 +1,26 @@
+<script type="text/javascript">
+    RED.nodes.registerType('order-to-siteflow',{
+        category: 'function',
+        color: '#FFFFFF',
+        defaults: {
+            name: {value:""},
+        },
+        inputs:1,
+        outputs:1,
+        icon: "siteflow.png",
+        label: function() {
+            return this.name||"order-to-siteflow";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="order-to-siteflow">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="order-to-siteflow">
+    <p>Order2SiteFlow.</p>
+</script>
