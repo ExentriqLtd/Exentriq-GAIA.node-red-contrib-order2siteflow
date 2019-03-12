@@ -8,7 +8,7 @@ module.exports = function(RED) {
             this.on('input', function(msg) {
         	
         	//REPLACE WITH YOUR BUSINESS LOGIC
-                msg.payload = msg.payload.toUpperCase();
+                msg.payload = "test " + msg.payload.toUpperCase();
                 //
                 
                 node.send(msg);
