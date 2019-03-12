@@ -8,7 +8,7 @@ module.exports = function(RED) {
             this.on('input', function(msg) {
         	
         	//REPLACE WITH YOUR BUSINESS LOGIC
-                msg.payload = examplePacker();
+                msg.payload = runPacker();
                 //
                 
                 node.send(msg);
@@ -18,8 +18,7 @@ module.exports = function(RED) {
         }
     }
     
-    // initiialize the layout
-	var packer = null;
+    var packer = null;
 	var pageWidth = 31; //inches, = 800mm
 	var pageHeight = 39;
 	var pageMargin = 2;
@@ -27,6 +26,31 @@ module.exports = function(RED) {
 	var pageWidthNoMargins = pageWidth - pageTotalMargin;
 	var pageHeightNoMargins = pageHeight - pageTotalMargin; 
 	var unit = "in";
+	var packMethod = 0;
+	
+	var res = {
+		"defaults": {
+	      "units": unit,//"mm",
+	      "page": {
+	        "size": {
+	          "height": pageHeight,
+	          "width": pageWidth
+	        },
+	        "margin": {	
+				"left": pageMargin,
+				"bottom": pageMargin,
+				"right": pageMargin,
+				"top": pageMargin
+			}
+	      }
+	    },
+	    "assets": {
+		    
+		    },
+		"classes": [
+			
+			]
+	}
 	
 	var showPreview = false;
 	
@@ -35,7 +59,7 @@ module.exports = function(RED) {
 		return input/scale;
 	}
 	
-	function runPacker(){
+	function runPacker(clientDetails){
 		packer = new MaxRectsBinPack(pageWidthNoMargins, pageHeightNoMargins);
 		console.log("new page " + pageWidthNoMargins + " x " + pageHeightNoMargins);
 		if(showPreview){
@@ -50,7 +74,7 @@ module.exports = function(RED) {
 		}
 		var pageIndex = 0;
 		
-		var jsonInput = JSON.parse($("#od").val());
+		var jsonInput = JSON.parse(clientDetails);
 		
 		var items = jsonInput.items;
 		
@@ -61,11 +85,23 @@ module.exports = function(RED) {
 		      var size = item.size;
 		      var h = parseFloat(size.split("x")[0].replace("\"",""));
 			  var w = parseFloat(size.split("x")[1].replace("\"",""));
+		      
+		      res.assets[itemName] = {
+			      "url": item.approved
+		      }
+		      res.classes.push({
+		        "height": h,
+		        "width": w,
+		        "fit": "fill",
+		        "type": "asset",
+		        "name": itemName,
+		        "asset": itemName
+		      })
 		        
 		        
 		      for(var i=0; i < item.quantity; i++){
 		        
-		        node = packer.Insert(h, w, 2);
+		        node = packer.Insert(h, w, packMethod);
 				if(node.height == 0){
 					//page
 					pageIndex++;
@@ -83,7 +119,10 @@ module.exports = function(RED) {
 						
 						$("#preview").append(cont)
 					}
-					node = packer.Insert(h, w, 2);
+					node = packer.Insert(h, w, packMethod);
+					node["class"] = itemName;
+					delete node.elementInstance;
+					pages[pageIndex].elements.push(node);
 					if(showPreview){
 						var nodeHtml = $("<div class='node'></div>");
 						nodeHtml.css("width", scaleToFit(node.width) + unit);
@@ -93,6 +132,8 @@ module.exports = function(RED) {
 						cont.append(nodeHtml);
 					}
 				}else{
+					node["class"] = itemName;
+					delete node.elementInstance;
 					pages[pageIndex].elements.push(node);
 					if(showPreview){
 						var nodeHtml = $("<div class='node'></div>");
@@ -106,10 +147,10 @@ module.exports = function(RED) {
 			}
 	      }
 	    }
-
-		console.log(pages);
+		res.pages = pages;
+		console.log(res);
 		if(showPreview){
-			var json = JSON.stringify(pages);
+			var json = JSON.stringify(res);
 			$("#json").html(json)
 		}
 		return json;
@@ -141,7 +182,9 @@ module.exports = function(RED) {
 		}
 		
 		console.log(pages);
+		
 		var json = JSON.stringify(pages);
+		$("#json").html(json)
 		return json;
 	};
 	
