@@ -8,7 +8,7 @@ module.exports = function(RED) {
             this.on('input', function(msg) {
         	
         	//REPLACE WITH YOUR BUSINESS LOGIC
-                msg.payload = runPacker();
+                msg.payload = runPacker(msg.payload.clientDetails);
                 //
                 
                 node.send(msg);
