@@ -112,7 +112,9 @@ module.exports = function(RED) {
 		        "asset": itemName
 		      })
 		        
-		        
+		       if(ref)
+			  	ref.warn("Order2SiteFlow quantity " + item.quantity);
+			  	
 		      for(var i=0; i < item.quantity; i++){
 		        
 		        node = packer.Insert(h, w, packMethod);
@@ -163,7 +165,7 @@ module.exports = function(RED) {
 	    }
 	    
 	    }catch(e){
-		    node.warn(e);
+		    ref.warn(e);
 	    }
 		res.pages = pages;
 		console.log(res);
