@@ -168,9 +168,10 @@ module.exports = function(RED) {
 		    ref.warn(e);
 	    }
 		res.pages = pages;
-		console.log(res);
+		if(ref)
+			ref.warn(res);
+		var json = JSON.stringify(res);
 		if(showPreview){
-			var json = JSON.stringify(res);
 			$("#json").html(json)
 		}
 		return json;
