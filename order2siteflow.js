@@ -8,7 +8,7 @@ module.exports = function(RED) {
             this.on('input', function(msg) {
         	
         	//REPLACE WITH YOUR BUSINESS LOGIC
-                msg.payload = runPacker(msg.payload.clientDetails);
+                msg.payload = runPacker(msg.payload.clientDetails, node);
                 //
                 
                 node.send(msg);
@@ -59,8 +59,9 @@ module.exports = function(RED) {
 		return input/scale;
 	}
 	
-	function runPacker(clientDetails){
-		node.warn("runPacker " + clientDetails);
+	function runPacker(clientDetails, ref){
+		if(ref)
+			ref.warn("runPacker " + clientDetails);
 		packer = new MaxRectsBinPack(pageWidthNoMargins, pageHeightNoMargins);
 		console.log("new page " + pageWidthNoMargins + " x " + pageHeightNoMargins);
 		if(showPreview){
@@ -77,7 +78,8 @@ module.exports = function(RED) {
 		
 		var jsonInput = JSON.parse(clientDetails);
 		
-		node.warn("Order2SiteFlow" + jsonInput);
+		if(ref)
+			ref.warn("Order2SiteFlow" + jsonInput);
 		
 		var items = jsonInput.items;
 		
