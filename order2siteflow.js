@@ -14,6 +14,7 @@ module.exports = function(RED) {
                 node.send(msg);
             });
         } catch (e) {
+	        console.error("Order2SiteFlow" + msg);
             node.error("ops, there was an error!", msg);
         }
     }
@@ -75,6 +76,8 @@ module.exports = function(RED) {
 		var pageIndex = 0;
 		
 		var jsonInput = JSON.parse(clientDetails);
+		
+		console.log("Order2SiteFlow" + jsonInput);
 		
 		var items = jsonInput.items;
 		
