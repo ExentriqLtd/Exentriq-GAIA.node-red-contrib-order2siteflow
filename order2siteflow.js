@@ -88,6 +88,7 @@ module.exports = function(RED) {
 		if(ref)
 			ref.warn("Order2SiteFlow items " + items);
 		
+		try{
 		for (var itemName in items) {
 	      if (items.hasOwnProperty(itemName)) { 
 		      
@@ -159,6 +160,10 @@ module.exports = function(RED) {
 				}
 			}
 	      }
+	    }
+	    
+	    }catch(e){
+		    node.warn(e);
 	    }
 		res.pages = pages;
 		console.log(res);
