@@ -61,13 +61,6 @@ module.exports = function(RED) {
 	
 	function runPacker(clientDetails, ref){
 		packer = new MaxRectsBinPack(pageWidthNoMargins, pageHeightNoMargins);
-		console.log("new page " + pageWidthNoMargins + " x " + pageHeightNoMargins);
-		if(showPreview){
-			var cont = $("<div class='page'></div>");
-			cont.css("width", scaleToFit(pageWidth) + unit)
-			cont.css("height", scaleToFit(pageHeight) + unit)
-			$("#preview").append(cont)
-		}
 		var pages = [];
 		pages[0] = {
 			elements : []
@@ -125,40 +118,18 @@ module.exports = function(RED) {
 						elements : []
 					}
 					packer = new MaxRectsBinPack(pageWidthNoMargins, pageHeightNoMargins);
-					console.log("new page " + pageWidthNoMargins + " x " + pageHeightNoMargins);
-					if(showPreview){
-						cont = $("<div class='page'></div>");
-						cont.css("width", scaleToFit(pageWidth) + unit)
-						cont.css("height", scaleToFit(pageHeight) + unit)
-						
-						//cont.css("top", scaleToFit(pageHeight * (pageIndex+1)) + unit)
-						
-						$("#preview").append(cont)
-					}
 					node = packer.Insert(h, w, packMethod);
 					node["class"] = itemName;
 					delete node.elementInstance;
+					delete node.scaled;
 					pages[pageIndex].elements.push(node);
-					if(showPreview){
-						var nodeHtml = $("<div class='node'></div>");
-						nodeHtml.css("width", scaleToFit(node.width) + unit);
-						nodeHtml.css("height", scaleToFit(node.height)+unit);
-						nodeHtml.css("left", scaleToFit(node.x+pageMargin) + unit);
-						nodeHtml.css("top", scaleToFit(node.y + pageMargin) + unit);
-						cont.append(nodeHtml);
-					}
+					
 				}else{
 					node["class"] = itemName;
 					delete node.elementInstance;
+					delete node.scaled;
 					pages[pageIndex].elements.push(node);
-					if(showPreview){
-						var nodeHtml = $("<div class='node'></div>");
-						nodeHtml.css("width", scaleToFit(node.width) + unit);
-						nodeHtml.css("height", scaleToFit(node.height)+unit);
-						nodeHtml.css("left", scaleToFit(node.x+pageMargin) + unit);
-						nodeHtml.css("top", scaleToFit(node.y + pageMargin) + unit);
-						cont.append(nodeHtml);
-					}
+					
 				}
 			}
 	      }
@@ -171,9 +142,6 @@ module.exports = function(RED) {
 		if(ref)
 			ref.warn(res);
 		var json = JSON.stringify(res);
-		if(showPreview){
-			$("#json").html(json)
-		}
 		return json;
 	};
 	
@@ -680,7 +648,7 @@ module.exports = function(RED) {
 					bestNode.y = this.freeRectangles[i].y;
 					bestNode.width = height;
 					bestNode.height = width;
-					bestNode.rotated = true;
+					bestNode.rotation = 180;
 					bestShortSideFit.val = shortSideFit;
 					bestAreaFit.val = areaFit;
 				}
