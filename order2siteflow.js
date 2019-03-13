@@ -74,6 +74,9 @@ module.exports = function(RED) {
 		}
 		var pageIndex = 0;
 		
+		if(ref)
+			ref.warn("Order2SiteFlow type " + typeof(clientDetails));
+		
 		var jsonInput = JSON.parse(clientDetails);
 		
 		var items = jsonInput.items;
