@@ -77,9 +77,13 @@ module.exports = function(RED) {
 		if(ref)
 			ref.warn("Order2SiteFlow type " + typeof(clientDetails));
 		
-		var jsonInput = JSON.parse(clientDetails);
-		
-		var items = jsonInput.items;
+		var items;
+		if(typeof(clientDetails) == "string"){
+			var jsonInput = JSON.parse(clientDetails);
+			items = jsonInput.items;
+		}else{
+			items = clientDetails.items;
+		}
 		
 		if(ref)
 			ref.warn("Order2SiteFlow items " + items);
