@@ -60,8 +60,6 @@ module.exports = function(RED) {
 	}
 	
 	function runPacker(clientDetails, ref){
-		if(ref)
-			ref.warn("runPacker " + clientDetails);
 		packer = new MaxRectsBinPack(pageWidthNoMargins, pageHeightNoMargins);
 		console.log("new page " + pageWidthNoMargins + " x " + pageHeightNoMargins);
 		if(showPreview){
@@ -78,14 +76,17 @@ module.exports = function(RED) {
 		
 		var jsonInput = JSON.parse(clientDetails);
 		
-		if(ref)
-			ref.warn("Order2SiteFlow" + jsonInput);
-		
 		var items = jsonInput.items;
+		
+		if(ref)
+			ref.warn("Order2SiteFlow items " + items);
 		
 		for (var itemName in items) {
 	      if (items.hasOwnProperty(itemName)) { 
 		      
+		      if(ref)
+			  	ref.warn("Order2SiteFlow itemName " + itemName);
+			
 		      var item = items[itemName];
 		      var size = item.size;
 		      var h = parseFloat(size.split("x")[0].replace("\"",""));
