@@ -14,8 +14,7 @@ module.exports = function(RED) {
                 node.send(msg);
             });
         } catch (e) {
-	        console.error("Order2SiteFlow" + msg);
-            node.error("ops, there was an error!", msg);
+	        node.error("ops, there was an error!", msg);
         }
     }
     
@@ -61,6 +60,7 @@ module.exports = function(RED) {
 	}
 	
 	function runPacker(clientDetails){
+		node.warn("runPacker " + clientDetails);
 		packer = new MaxRectsBinPack(pageWidthNoMargins, pageHeightNoMargins);
 		console.log("new page " + pageWidthNoMargins + " x " + pageHeightNoMargins);
 		if(showPreview){
@@ -77,7 +77,7 @@ module.exports = function(RED) {
 		
 		var jsonInput = JSON.parse(clientDetails);
 		
-		console.log("Order2SiteFlow" + jsonInput);
+		node.warn("Order2SiteFlow" + jsonInput);
 		
 		var items = jsonInput.items;
 		
