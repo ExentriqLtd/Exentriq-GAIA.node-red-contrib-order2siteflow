@@ -1,13 +1,16 @@
 {
-  "name": "node-red-contrib-order-to-siteflow",
-  "version": "1.0.0",
-  "description": "Order2SiteFlow",
-  "author": "Calogero Crapanzano <calosan@gmail.com>",
-  "keywords": [ "node-red" ],
-  "dependencies": {
-    "avsc": "*"
-  },
-  "node-red"     : {
+    "name": "node-red-contrib-order-to-siteflow",
+    "version": "1.0.0",
+    "description": "Order2SiteFlow",
+    "author": "Calogero Crapanzano <calosan@gmail.com>",
+    "keywords": [
+        "node-red"
+    ],
+    "dependencies": {
+        "avsc": "*",
+        "oneflow-sdk-js": "^2.0.9"
+    },
+    "node-red": {
         "nodes": {
             "avro": "order2siteflow.js"
         }

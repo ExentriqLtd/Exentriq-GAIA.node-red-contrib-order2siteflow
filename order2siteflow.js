@@ -1,4 +1,6 @@
-module.exports = function(RED) {
+ const OneflowClient = require('oneflow-sdk-js');
+ 
+ module.exports = function(RED) {
 
     function Order2SiteFlow(config) {
         RED.nodes.createNode(this, config);
@@ -7,8 +9,23 @@ module.exports = function(RED) {
         try {
             this.on('input', function(msg) {
         	
-        	//REPLACE WITH YOUR BUSINESS LOGIC
-                msg.payload = runPacker(msg.payload.clientDetails, node);
+        		if(msg.payload.attachment)
+	                msg.payload = runPacker(msg.payload.clientDetails, node);
+	            else{
+		             const client = new OneflowClient(
+				    	"https://orders.oneflow.io/api/order" || 'https://pro-api.oneflowcloud.com/api',
+				    	msg.payload.token,
+				    	msg.payload.secret
+				    );
+				    
+				    /*const destinationName  = 'oneflow';
+				    const orderData  = { sourceOrderId: 'aUniqueId' };
+				    const order = client.createOrder(destinationName, orderData);
+				    
+				    // ... instructions to complete the order data ...
+				    
+				    const result = await client.submitOrder();*/
+	            }
                 //
                 
                 node.send(msg);
