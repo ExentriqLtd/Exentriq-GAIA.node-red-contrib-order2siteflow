@@ -20,13 +20,14 @@
 				    	msg.payload.secret
 				    );
 				    
-				    const destinationName  = 'oneflow';
-				    const orderData  = { sourceOrderId: 'aUniqueId' };
+				    const destinationName  = 'hp.dpidirect';
+				    const orderData  = { sourceOrderId: 'order12345' };
 				    const order = client.createOrder(destinationName, orderData);
 				    
 				    // ... instructions to complete the order data ...
 				    
-				    const result = await client.submitOrder();
+				    //const result = await 
+				    client.submitOrder();
 	            }
                 //
                 
