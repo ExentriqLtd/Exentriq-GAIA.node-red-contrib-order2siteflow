@@ -27,7 +27,7 @@
 				    // ... instructions to complete the order data ...
 				    
 				    //const result = await 
-				    msg.payload = await client.submitOrder();
+				    submitOrder(client, node);
 	            }
                 //
                 
@@ -36,6 +36,12 @@
         } catch (e) {
 	        node.error("ops, there was an error!", msg);
         }
+    }
+    
+    aync function submitOrder(client, ref){
+	    const res = await client.submitOrder();
+	    if(ref)
+			ref.warn("Order2SiteFlow submitOrder " + res);
     }
     
     var packer = null;
