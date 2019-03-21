@@ -38,7 +38,7 @@
         }
     }
     
-    aync function submitOrder(client, ref){
+    async function submitOrder(client, ref){
 	    const res = await client.submitOrder();
 	    if(ref)
 			ref.warn("Order2SiteFlow submitOrder " + res);
