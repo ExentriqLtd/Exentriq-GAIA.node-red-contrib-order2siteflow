@@ -27,7 +27,7 @@
 				    // ... instructions to complete the order data ...
 				    
 				    //const result = await 
-				    msg.payload = client.submitOrder();
+				    msg.payload = await client.submitOrder();
 	            }
                 //
                 
