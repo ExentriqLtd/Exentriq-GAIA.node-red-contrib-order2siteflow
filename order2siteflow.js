@@ -20,13 +20,13 @@
 				    	msg.payload.secret
 				    );
 				    
-				    /*const destinationName  = 'oneflow';
+				    const destinationName  = 'oneflow';
 				    const orderData  = { sourceOrderId: 'aUniqueId' };
 				    const order = client.createOrder(destinationName, orderData);
 				    
 				    // ... instructions to complete the order data ...
 				    
-				    const result = await client.submitOrder();*/
+				    const result = await client.submitOrder();
 	            }
                 //
                 
