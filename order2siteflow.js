@@ -45,9 +45,9 @@
     }
     
     var packer = null;
-	var pageWidth = 31; //inches, = 800mm
-	var pageHeight = 39;
-	var pageMargin = 2;
+	var pageWidth = 29.5; //inches, = 800mm
+	var pageHeight = 20.75;
+	var pageMargin = 0.5;
 	var pageTotalMargin = pageMargin*2;
 	var pageWidthNoMargins = pageWidth - pageTotalMargin;
 	var pageHeightNoMargins = pageHeight - pageTotalMargin; 
