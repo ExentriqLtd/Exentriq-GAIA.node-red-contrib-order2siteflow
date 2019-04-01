@@ -27,7 +27,7 @@
 				    // ... instructions to complete the order data ...
 				    
 				    //const result = await 
-				    submitOrder(client, node);
+				   // submitOrder(client, node);
 	            }
                 //
                 
@@ -38,11 +38,11 @@
         }
     }
     
-    async function submitOrder(client, ref){
+    /*async function submitOrder(client, ref){
 	    const res = await client.submitOrder();
 	    if(ref)
 			ref.warn("Order2SiteFlow submitOrder " + res);
-    }
+    }*/
     
     var packer = null;
 	var pageWidth = 29.5; //inches, = 800mm
