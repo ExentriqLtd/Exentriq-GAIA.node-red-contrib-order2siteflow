@@ -15,19 +15,48 @@
 	                msg.payload = runPacker(msg.payload.clientDetails, node);
 	            else{
 		             const client = new OneflowClient(
-				    	"https://orders.oneflow.io/api/order" || 'https://pro-api.oneflowcloud.com/api',
+				    	"https://orders.oneflow.io/api",
 				    	msg.payload.token,
 				    	msg.payload.secret
 				    );
 				    
 				    const destinationName  = 'hp.dpidirect';
-				    const orderData  = { sourceOrderId: 'order12345' };
+				    const orderData  = { sourceOrderId: 'order' + Math.ceil(Math.random() * 1000000) };
 				    const order = client.createOrder(destinationName, orderData);
 				    
+				    const sourceItemId = orderData.sourceOrderId + "-1";
+					const sku = "llama-stickers";
+					const quantity = 1;
+					const path = 'https://s3-eu-west-1.amazonaws.com/oneflow-public/business_cards.pdf';
+					const fetch = true;
+					
+					const item = order.addItem({ sku, quantity, sourceItemId });
+
+					order.orderData.amount = 10;
+
+					item.addComponent({ code: 'Artwork', path, fetch });
+					item.addComponent({ code: 'Cut_File', path, fetch });
+				
+					//order.addStockItem({ code: '123', quantity: 10 });
+				
+					order.addShipment({
+						shipTo: {
+							name: "Nigel Watson",
+							address1: "999 Letsbe Avenue",
+							town: "New York",
+							isoCountry: "US",
+							postcode: "10001"
+						},
+						carrier: {
+							code: "customer",
+							service: "shipping"
+						}
+					});
+					
 				    // ... instructions to complete the order data ...
 				    
 				    //const result = await 
-				   // submitOrder(client, node);
+				    submitOrder(client, node);
 	            }
                 //
                 
