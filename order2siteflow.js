@@ -38,11 +38,11 @@
         }
     }
     
-    /*async function submitOrder(client, ref){
+    async function submitOrder(client, ref){
 	    const res = await client.submitOrder();
 	    if(ref)
 			ref.warn("Order2SiteFlow submitOrder " + res);
-    }*/
+    }
     
     var packer = null;
 	var pageWidth = 29.5; //inches, = 800mm
@@ -55,28 +55,37 @@
 	var packMethod = 0;
 	
 	var res = {
-		"defaults": {
-	      "units": unit,//"mm",
-	      "page": {
-	        "size": {
-	          "height": pageHeight,
-	          "width": pageWidth
-	        },
-	        "margin": {	
-				"left": pageMargin,
-				"bottom": pageMargin,
-				"right": pageMargin,
-				"top": pageMargin
+				"defaults": {
+			      "units": unit,//"mm",
+			      "page": {
+			        "size": {
+			          "height": pageHeight,
+			          "width": pageWidth
+			        },
+			        "margin": {	
+						"left": pageMargin,
+						"bottom": pageMargin,
+						"right": pageMargin,
+						"top": pageMargin
+					}
+			      }
+			    },
+			    "assets": {
+				    "MarkPic": {
+				        "url": "http://www.thelockinmovie.com/wp-content/uploads/2018/09/dot-clipart-circle-disk-symbol-polygon-dots-clipart-png-download-600600-animations-1024x1024.jpg"
+				     }
+				    },
+				"classes": [
+					{
+				        "height": 0.1875,
+						"width": 0.1875,
+				        "fit": "fill",
+				        "type": "asset",
+				        "name": "Mark",
+				        "asset": "MarkPic"
+				      }
+				]
 			}
-	      }
-	    },
-	    "assets": {
-		    
-		    },
-		"classes": [
-			
-			]
-	}
 	
 	var showPreview = false;
 	
@@ -87,10 +96,34 @@
 	
 	function runPacker(clientDetails, ref){
 		packer = new MaxRectsBinPack(pageWidthNoMargins, pageHeightNoMargins);
+		var dotWidth = 0.1;
+				
 		var pages = [];
 		pages[0] = {
-			elements : []
+			elements : [
+			      {
+		            "class": "Mark",
+		            "x": 0.2,
+		            "y": 0.2
+		          },
+		          {
+		            "class": "Mark",
+		            "x": pageWidth - 0.2 - dotWidth,
+		            "y": pageHeight - 0.2 - dotWidth
+		          },
+		          {
+		            "class": "Mark",
+		            "x": 0.2,
+		            "y": pageHeight - 0.2 - dotWidth
+		          },
+		          {
+		            "class": "Mark",
+		            "x": pageWidth - 0.2 - dotWidth,
+		            "y": 0.2
+		          }
+		      ]
 		}
+		
 		var pageIndex = 0;
 		
 		if(ref)
@@ -116,8 +149,11 @@
 			
 		      var item = items[itemName];
 		      var size = item.size;
-		      var h = parseFloat(size.split("x")[0].replace("\"",""));
-			  var w = parseFloat(size.split("x")[1].replace("\"",""));
+		      var w = parseFloat(size.split("x")[0].replace("\"",""));
+			  var h = parseFloat(size.split("x")[1].replace("\"",""));
+			  
+			  h+=cutLinesSpace;
+			  w+=cutLinesSpace;
 		      
 		      res.assets[itemName] = {
 			      "url": item.approved
@@ -141,19 +177,54 @@
 					//page
 					pageIndex++;
 					pages[pageIndex] = {
-						elements : []
-					}
+								elements : [
+								      {
+							            "class": "Mark",
+							            "x": 0.2,
+							            "y": 0.2
+							          },
+							          {
+							            "class": "Mark",
+							            "x": pageWidth - 0.2 - dotWidth,
+							            "y": pageHeight - 0.2 - dotWidth
+							          },
+							          {
+							            "class": "Mark",
+							            "x": 0.2,
+							            "y": pageHeight - 0.2 - dotWidth
+							          },
+							          {
+							            "class": "Mark",
+							            "x": pageWidth - 0.2 - dotWidth,
+							            "y": 0.2
+							          }
+							      ]
+							}
+							
+							
 					packer = new MaxRectsBinPack(pageWidthNoMargins, pageHeightNoMargins);
 					node = packer.Insert(h, w, packMethod);
 					node["class"] = itemName;
 					delete node.elementInstance;
 					delete node.scaled;
+					
+					node.height = node.height - cutLinesSpace;
+					node.width = node.width - cutLinesSpace;
+					node.x = node.x + pageMargin; //siteflow consider 0 the starting point, even when we add page margins
+					node.y = node.y + pageMargin;
+					
 					pages[pageIndex].elements.push(node);
 					
 				}else{
 					node["class"] = itemName;
 					delete node.elementInstance;
 					delete node.scaled;
+					
+					node.height = node.height - cutLinesSpace;
+					node.width = node.width - cutLinesSpace;
+					node.x = node.x + pageMargin; //siteflow consider 0 the starting point, even when we add page margins
+					node.y = node.y + pageMargin;
+					
 					pages[pageIndex].elements.push(node);
 					
 				}
@@ -514,6 +585,8 @@
 					bestNode.y = this.freeRectangles[i].y;
 					bestNode.width = width;
 					bestNode.height = height;
+					bestNode.rotation = 0;
+					console.log("not rotate")
 					bestY.val = topSideY;
 					bestX.val = this.freeRectangles[i].x;
 				}
@@ -527,6 +600,8 @@
 					bestNode.y = this.freeRectangles[i].y;
 					bestNode.width = height;
 					bestNode.height = width;
+					bestNode.rotation = 90;
+					console.log("rotate")
 					bestY.val = topSideY;
 					bestX.val = this.freeRectangles[i].x;
 				}
@@ -557,6 +632,8 @@
 					bestNode.y = this.freeRectangles[i].y;
 					bestNode.width = width;
 					bestNode.height = height;
+					bestNode.rotation = 0;
+					console.log("not rotate")
 					bestShortSideFit.val = shortSideFit;
 					bestLongSideFit.val = longSideFit;
 				}
@@ -575,6 +652,8 @@
 					bestNode.y = this.freeRectangles[i].y;
 					bestNode.width = height;
 					bestNode.height = width;
+					bestNode.rotation = 90;
+					console.log("rotate")
 					bestShortSideFit.val = flippedShortSideFit;
 					bestLongSideFit.val = flippedLongSideFit;
 				}
@@ -605,6 +684,8 @@
 					bestNode.y = this.freeRectangles[i].y;
 					bestNode.width = width;
 					bestNode.height = height;
+					bestNode.rotation = 0;
+					console.log("not rotate")
 					bestShortSideFit.val = shortSideFit;
 					bestLongSideFit.val = longSideFit;
 				}
@@ -623,6 +704,8 @@
 					bestNode.y = this.freeRectangles[i].y;
 					bestNode.width = height;
 					bestNode.height = width;
+					bestNode.rotation = 90;
+					console.log("rotate")
 					bestShortSideFit.val = shortSideFit;
 					bestLongSideFit.val = longSideFit;
 				}
@@ -657,8 +740,10 @@
 					bestNode.y = this.freeRectangles[i].y;
 					bestNode.width = width;
 					bestNode.height = height;
+					bestNode.rotation = 0;
 					bestShortSideFit.val = shortSideFit;
 					bestAreaFit.val = areaFit;
+					console.log("not rotate")
 				}
 			}
 	
@@ -674,7 +759,8 @@
 					bestNode.y = this.freeRectangles[i].y;
 					bestNode.width = height;
 					bestNode.height = width;
-					bestNode.rotation = 180;
+					bestNode.rotation = 90;
+					console.log("rotate")
 					bestShortSideFit.val = shortSideFit;
 					bestAreaFit.val = areaFit;
 				}
@@ -730,6 +816,8 @@
 					bestNode.y = this.freeRectangles[i].y;
 					bestNode.width = width;
 					bestNode.height = height;
+					bestNode.rotation = 0;
+					console.log("not rotate")
 					bestContactScore.val = score;
 				}
 			}
@@ -742,6 +830,8 @@
 					bestNode.y = this.freeRectangles[i].y;
 					bestNode.width = height;
 					bestNode.height = width;
+					bestNode.rotation = 90;
+					console.log("rotate")
 					bestContactScore.val = score;
 				}
 			}
