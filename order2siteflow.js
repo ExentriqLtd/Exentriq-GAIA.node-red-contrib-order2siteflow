@@ -281,6 +281,8 @@
 		res.pages = pages;
 		if(ref)
 			ref.warn(res);
+		
+		res.itemName = itemName;
 		var json = JSON.stringify(res);
 		return json;
 	};
