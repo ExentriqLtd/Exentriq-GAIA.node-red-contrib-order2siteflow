@@ -48,6 +48,7 @@
 	var pageWidth = 29.5; //inches, = 800mm
 	var pageHeight = 20.75;
 	var pageMargin = 0.5;
+	var cutLinesSpace = 0.25
 	var pageTotalMargin = pageMargin*2;
 	var pageWidthNoMargins = pageWidth - pageTotalMargin;
 	var pageHeightNoMargins = pageHeight - pageTotalMargin; 
