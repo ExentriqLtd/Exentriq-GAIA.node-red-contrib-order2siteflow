@@ -84,38 +84,6 @@
 	var unit = "in";
 	var packMethod = 0;
 	
-	var res = {
-				"defaults": {
-			      "units": unit,//"mm",
-			      "page": {
-			        "size": {
-			          "height": pageHeight,
-			          "width": pageWidth
-			        },
-			        "margin": {	
-						"left": pageMargin,
-						"bottom": pageMargin,
-						"right": pageMargin,
-						"top": pageMargin
-					}
-			      }
-			    },
-			    "assets": {
-				    "MarkPic": {
-				        "url": "http://www.thelockinmovie.com/wp-content/uploads/2018/09/dot-clipart-circle-disk-symbol-polygon-dots-clipart-png-download-600600-animations-1024x1024.jpg"
-				     }
-				    },
-				"classes": [
-					{
-				        "height": 0.1875,
-						"width": 0.1875,
-				        "fit": "fill",
-				        "type": "asset",
-				        "name": "Mark",
-				        "asset": "MarkPic"
-				      }
-				]
-			}
 	
 	var showPreview = false;
 	
@@ -125,7 +93,68 @@
 	}
 	
 	function runPacker(clientDetails, ref){
-		packer = new MaxRectsBinPack(pageWidthNoMargins, pageHeightNoMargins);
+			var allLayouts = [];
+		
+			if(ref)
+				ref.warn("Order2SiteFlow type " + typeof(clientDetails));
+			
+			var items;
+			if(typeof(clientDetails) == "string"){
+				var jsonInput = JSON.parse(clientDetails);
+				items = jsonInput.items;
+			}else{
+				items = clientDetails.items;
+			}
+			
+			if(ref)
+				ref.warn("Order2SiteFlow items " + items);
+								
+			for (var itemName in items) {
+		      if (items.hasOwnProperty(itemName)) { 
+			       var item = items[itemName];
+			       var layout = runPackerCallback(item, itemName, ref)
+			       console.log("layout" , layout);
+			       allLayouts.push(layout);
+			  }
+			}
+			return allLayouts;
+	}
+	
+	function runPackerCallback(item, itemName, ref){	
+			var res = {
+					"defaults": {
+				      "units": unit,//"mm",
+				      "page": {
+				        "size": {
+				          "height": pageHeight,
+				          "width": pageWidth
+				        },
+				        "margin": {	
+							"left": pageMargin,
+							"bottom": pageMargin,
+							"right": pageMargin,
+							"top": pageMargin
+						}
+				      }
+				    },
+				    "assets": {
+					    "MarkPic": {
+					        "url": "http://www.thelockinmovie.com/wp-content/uploads/2018/09/dot-clipart-circle-disk-symbol-polygon-dots-clipart-png-download-600600-animations-1024x1024.jpg"
+					     }
+					    },
+					"classes": [
+						{
+					        "height": 0.1875,
+							"width": 0.1875,
+					        "fit": "fill",
+					        "type": "asset",
+					        "name": "Mark",
+					        "asset": "MarkPic"
+					      }
+					]
+				}
+				
+		var packer = new MaxRectsBinPack(pageWidthNoMargins, pageHeightNoMargins);
 		var dotWidth = 0.1;
 				
 		var pages = [];
@@ -156,24 +185,10 @@
 		
 		var pageIndex = 0;
 		
-		if(ref)
-			ref.warn("Order2SiteFlow type " + typeof(clientDetails));
 		
-		var items;
-		if(typeof(clientDetails) == "string"){
-			var jsonInput = JSON.parse(clientDetails);
-			items = jsonInput.items;
-		}else{
-			items = clientDetails.items;
-		}
-		
-		if(ref)
-			ref.warn("Order2SiteFlow items " + items);
 		
 		try{
-		for (var itemName in items) {
-	      if (items.hasOwnProperty(itemName)) { 
-		      
+		
 		      if(ref)
 			  	ref.warn("Order2SiteFlow itemName " + itemName);
 			
@@ -259,8 +274,6 @@
 					
 				}
 			}
-	      }
-	    }
 	    
 	    }catch(e){
 		    ref.warn(e);
