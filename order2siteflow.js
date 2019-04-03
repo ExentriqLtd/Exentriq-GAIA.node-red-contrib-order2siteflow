@@ -20,7 +20,7 @@
 				    	msg.payload.secret
 				    );
 				    
-				    const destinationName  = 'hp.dpidirect';
+				    const destinationName  = msg.payload.destinationName;
 				    const orderData  = { 
 					    sourceOrderId: msg.payload.code
 					    };
@@ -51,6 +51,8 @@
 						items = msg.payload.order.items;
 					}
 					
+					order.orderData.amount = 1;
+					
 					for (var itemName in items) {
 				      if (items.hasOwnProperty(itemName)) { 
 					    var itemObj = items[itemName];
@@ -62,7 +64,7 @@
 						
 						const item = order.addItem({ sku, quantity, sourceItemId });
 	
-						order.orderData.amount = 10;
+						
 	
 						item.addComponent({ code: 'Artwork', path, fetch });
 						item.addComponent({ code: 'Cut_File', path, fetch });
