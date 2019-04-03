@@ -12,7 +12,7 @@
         		node.warn("Order2SiteFlow input " + msg.payload.attachment);
         		
         		if(msg.payload.attachment == null)
-	                msg.payload = runPacker(msg.payload.clientDetails, node);
+	                msg.payload.layouts = runPacker(msg.payload.clientDetails, node);
 	            else{
 		             const client = new OneflowClient(
 				    	"https://orders.oneflow.io/api",
