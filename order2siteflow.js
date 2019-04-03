@@ -53,7 +53,7 @@
 					
 					for (var itemName in items) {
 				      if (items.hasOwnProperty(itemName)) { 
-					    var item = items[itemName];
+					    var itemObj = items[itemName];
 						const sourceItemId = orderData.sourceOrderId + itemName; //missing
 						const sku = "llama-stickers"; //put in catalog
 						const quantity = 1; //should be always one in out case
