@@ -192,7 +192,7 @@
 		      if(ref)
 			  	ref.warn("Order2SiteFlow itemName " + itemName);
 			
-		      var item = items[itemName];
+		      //var item = items[itemName];
 		      var size = item.size;
 		      var w = parseFloat(size.split("x")[0].replace("\"",""));
 			  var h = parseFloat(size.split("x")[1].replace("\"",""));
