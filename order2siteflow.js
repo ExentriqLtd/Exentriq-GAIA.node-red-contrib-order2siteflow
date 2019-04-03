@@ -21,37 +21,53 @@
 				    );
 				    
 				    const destinationName  = 'hp.dpidirect';
-				    const orderData  = { sourceOrderId: 'order' + Math.ceil(Math.random() * 1000000) };
+				    const orderData  = { 
+					    sourceOrderId: msg.payload.code
+					    };
 				    const order = client.createOrder(destinationName, orderData);
 				    
-				    const sourceItemId = orderData.sourceOrderId + "-1";
-					const sku = "llama-stickers";
-					const quantity = 1;
-					const path = 'https://s3-eu-west-1.amazonaws.com/oneflow-public/business_cards.pdf';
-					const fetch = true;
-					
-					const item = order.addItem({ sku, quantity, sourceItemId });
-
-					order.orderData.amount = 10;
-
-					item.addComponent({ code: 'Artwork', path, fetch });
-					item.addComponent({ code: 'Cut_File', path, fetch });
-				
 					//order.addStockItem({ code: '123', quantity: 10 });
 				
+					var shipData = msg.payload.order["shipping_data"];
 					order.addShipment({
 						shipTo: {
-							name: "Nigel Watson",
-							address1: "999 Letsbe Avenue",
-							town: "New York",
-							isoCountry: "US",
-							postcode: "10001"
+							name: shipData.firstName + " " + shipData.lastName,
+							address1: shipData.street1,
+							town: shipData.city,
+							isoCountry: shipData.country.toUpperCase(),
+							postcode: shipData.zipCode
 						},
 						carrier: {
 							code: "customer",
 							service: "shipping"
 						}
 					});
+					
+					var items;
+					if(typeof(msg.payload.order) == "string"){
+						var jsonInput = JSON.parse(msg.payload.order);
+						items = jsonInput.items;
+					}else{
+						items = msg.payload.order.items;
+					}
+					
+					for (var itemName in items) {
+				      if (items.hasOwnProperty(itemName)) { 
+					    var item = items[itemName];
+						const sourceItemId = orderData.sourceOrderId + itemName; //missing
+						const sku = "llama-stickers"; //put in catalog
+						const quantity = 1; //should be always one in out case
+						const path = msg.payload.attachment + itemName;// 'https://s3-eu-west-1.amazonaws.com/oneflow-public/business_cards.pdf';
+						const fetch = true;
+						
+						const item = order.addItem({ sku, quantity, sourceItemId });
+	
+						order.orderData.amount = 10;
+	
+						item.addComponent({ code: 'Artwork', path, fetch });
+						item.addComponent({ code: 'Cut_File', path, fetch });
+						}
+					}
 					
 				    // ... instructions to complete the order data ...
 				    
