@@ -219,7 +219,7 @@
 			  w+=cutLinesSpace;
 		      
 		      res.assets[itemName] = {
-			      "url": item.approved
+			      "url": item.final
 		      }
 		      res.classes.push({
 		        "height": h,
