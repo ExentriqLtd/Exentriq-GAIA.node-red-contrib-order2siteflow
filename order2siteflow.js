@@ -60,6 +60,8 @@
 						const sku = "llama-stickers"; //put in catalog
 						const quantity = 1; //should be always one in out case
 						const path = msg.payload.attachment + itemName;// 'https://s3-eu-west-1.amazonaws.com/oneflow-public/business_cards.pdf';
+						node.warn("Order2SiteFlow path " + path);
+						
 						const fetch = true;
 						
 						const item = order.addItem({ sku, quantity, sourceItemId });
