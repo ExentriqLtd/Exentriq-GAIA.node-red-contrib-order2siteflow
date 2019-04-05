@@ -57,7 +57,7 @@
 				      if (items.hasOwnProperty(itemName)) { 
 					    var itemObj = items[itemName];
 						const sourceItemId = orderData.sourceOrderId + itemName; //missing
-						const sku = "llama-stickers"; //put in catalog
+						const sku = itemObj.sku;//"llama-stickers"; //put in catalog
 						const quantity = 1; //should be always one in out case
 						const path = msg.payload.attachment + itemName;// 'https://s3-eu-west-1.amazonaws.com/oneflow-public/business_cards.pdf';
 						node.warn("Order2SiteFlow path " + path);
