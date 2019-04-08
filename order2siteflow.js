@@ -58,6 +58,12 @@
 					    var itemObj = items[itemName];
 						const sourceItemId = orderData.sourceOrderId + itemName; //missing
 						const sku = itemObj.sku;//"llama-stickers"; //put in catalog
+						
+						if(!sku || sku == ""){
+							//sticky signs not in the siteflow order
+							continue;
+						}
+						
 						const quantity = 1; //should be always one in out case
 						const path = msg.payload.attachment + itemName;// 'https://s3-eu-west-1.amazonaws.com/oneflow-public/business_cards.pdf';
 						node.warn("Order2SiteFlow path " + path);
