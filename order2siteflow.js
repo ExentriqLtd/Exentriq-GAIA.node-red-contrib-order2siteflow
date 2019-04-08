@@ -159,7 +159,7 @@
 				    },
 				    "assets": {
 					    "MarkPic": {
-					        "url": "http://www.thelockinmovie.com/wp-content/uploads/2018/09/dot-clipart-circle-disk-symbol-polygon-dots-clipart-png-download-600600-animations-1024x1024.jpg"
+					        "url": "http://dpisticker.stage.exeq.me/subsites/apps/dpisticker/assets/images/dot.jpg"
 					     }
 					    },
 					"classes": [
