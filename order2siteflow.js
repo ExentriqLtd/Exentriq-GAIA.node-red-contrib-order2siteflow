@@ -64,8 +64,18 @@
 						
 						const fetch = true;
 						
+						
+						
 						const item = order.addItem({ sku, quantity, sourceItemId });
 	
+						//must be an array of objects
+						item.attributes = []
+						
+						if(itemObj.lamination){
+							item.attributes.push({
+								lamination: "gloss"
+							})
+						}
 						
 	
 						item.addComponent({ code: 'Artwork', path, fetch });
