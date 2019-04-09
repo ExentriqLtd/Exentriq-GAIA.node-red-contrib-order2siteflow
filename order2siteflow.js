@@ -14,10 +14,14 @@
         		if(msg.payload.attachment == null){
 	                var tmpLayouts = runPacker(msg.payload.clientDetails, node);
 	                
+	                node.warn("Order2SiteFlow singlepagelayout " + msg.payload.singlepagelayout);
+	                
 	                if(msg.payload.singlepagelayout != null){
 		               //9 april 2019: dpi decided to have only one pages layout and to get the number of copies to print
 		               
 		               var itemsMap = {};
+		               
+		               node.warn("Order2SiteFlow tmpLayouts " + tmpLayouts.length);
 		               
 		                for(var l = 0; l < tmpLayouts.length; l++){
 			                var layoutObj = JSON.parse(tmpLayouts[l])
@@ -26,6 +30,8 @@
 			                var onePageLayout = [];
 			                onePageLayout.push(pages[0]);
 			                var itemName = tmpLayouts[l].name; //at position 0 there is always the mark
+			                
+			                node.warn("Order2SiteFlow input " + pages);
 			                
 			                //for each item, i need the number of copies for page and the number of pages (sheets)
 			                
@@ -118,7 +124,7 @@
 						
 						if(itemObj.material){
 							item.attributes.push({
-								lamination: itmObj.material
+								lamination: itemObj.material
 							})
 						}
 						
