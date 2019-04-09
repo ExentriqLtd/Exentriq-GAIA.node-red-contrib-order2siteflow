@@ -110,12 +110,15 @@
 						
 						item.printQuantity = itemsMap[itemName];
 	
+						node.warn("Order2SiteFlow item.quantity " + item.quantity);
+						node.warn("Order2SiteFlow item.printQuantity " + item.printQuantity);
+						
 						//must be an array of objects
 						item.attributes = []
 						
-						if(itemObj.lamination){
+						if(itemObj.material){
 							item.attributes.push({
-								lamination: "gloss"
+								lamination: itmObj.material
 							})
 						}
 						
