@@ -29,7 +29,7 @@
 			                node.warn("Order2SiteFlow input " + pages);
 			                var onePageLayout = [];
 			                onePageLayout.push(pages[0]);
-			                var itemName = tmpLayouts[l].name; //at position 0 there is always the mark
+			                var itemName = layoutObj.name; //at position 0 there is always the mark
 			                
 			                node.warn("Order2SiteFlow input " + itemName);
 			                
@@ -41,8 +41,9 @@
 			                
 			                node.warn("Order2SiteFlow input " + itemName + " pagesToPrint " + pagesToPrint);
 			                
-			                tmpLayouts[l].pages = onePageLayout;
-			                delete tmpLayouts[l].name;
+			                layoutObj.pages = onePageLayout;
+			                delete layoutObj.name;
+			                tmpLayouts[l] = JSON.stringify(layoutObj);
 		                }
 		                msg.payload.layouts = tmpLayouts;
 		                msg.payload.itemsMap = itemsMap;
