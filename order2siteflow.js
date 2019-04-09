@@ -120,9 +120,10 @@
 						}
 					}
 					
-					mag.payload = order;
+				    // ... instructions to complete the order data ...
 				    
-				    //submitOrder(client, node);
+				    //const result = await 
+				    submitOrder(client, node);
 	            }
                 //
                 
