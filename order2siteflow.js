@@ -11,9 +11,35 @@
         	
         		node.warn("Order2SiteFlow input " + msg.payload.attachment);
         		
-        		if(msg.payload.attachment == null)
-	                msg.payload.layouts = runPacker(msg.payload.clientDetails, node);
-	            else{
+        		if(msg.payload.attachment == null){
+	                var tmpLayouts = runPacker(msg.payload.clientDetails, node);
+	                
+	                if(msg.payload.singlepagelayout != null){
+		               //9 april 2019: dpi decided to have only one pages layout and to get the number of copies to print
+		               
+		               var itemsMap = {}
+		               
+		                for(var l : tmpLayouts){
+			                var pages = tmpLayouts[l].pages;
+			                var onePageLayout = [pages[0]];
+			                var itemName = [tmpLayouts[l].assets[1]]; //at position 0 there is always the mark
+			                //for each item, i need the number of copies for page and the number of pages (sheets)
+			                
+			                var pagesToPrint = pages.length;
+			                
+			                itemsMap[itemName] = pagesToPrint;
+			                
+			                tmpLayouts[l].pages = onePageLayout;
+		                }
+		                msg.payload.layouts = tmpLayouts;
+		                msg.payload.itemsMap = itemsMap;
+	                }else{
+		                 msg.payload.layouts = tmpLayouts;
+	                }
+	                
+	                
+	                
+	            }else{
 		             const client = new OneflowClient(
 				    	"https://orders.oneflow.io/api",
 				    	msg.payload.token,
