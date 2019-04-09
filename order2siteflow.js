@@ -21,6 +21,7 @@
 		               
 		                for(var l = 0; l < tmpLayouts.length; l++){
 			                var pages = tmpLayouts[l].pages;
+			                node.warn("Order2SiteFlow input " + pages);
 			                var onePageLayout = [];
 			                onePageLayout.push(pages[0]);
 			                var itemName = tmpLayouts[l].name; //at position 0 there is always the mark
