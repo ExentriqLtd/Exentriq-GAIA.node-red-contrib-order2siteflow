@@ -125,7 +125,7 @@
 						}
 					}
 					
-					mag.payload = order;
+					msg.payload = order;
 				    
 				    //submitOrder(client, node);
 	            }
