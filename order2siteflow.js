@@ -139,7 +139,7 @@
 					
 					msg.payload = order;
 				    
-				    //submitOrder(client, node);
+				    submitOrder(client, node);
 	            }
                 //
                 
