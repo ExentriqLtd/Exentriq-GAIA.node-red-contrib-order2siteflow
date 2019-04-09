@@ -17,12 +17,14 @@
 	                if(msg.payload.singlepagelayout != null){
 		               //9 april 2019: dpi decided to have only one pages layout and to get the number of copies to print
 		               
-		               var itemsMap = {}
+		               var itemsMap = {};
 		               
-		                for(var l : tmpLayouts){
+		                for(var l = 0; l < tmpLayouts.length; l++){
 			                var pages = tmpLayouts[l].pages;
-			                var onePageLayout = [pages[0]];
-			                var itemName = [tmpLayouts[l].assets[1]]; //at position 0 there is always the mark
+			                var onePageLayout = [];
+			                onePageLayout.push(pages[0]);
+			                var itemName = tmpLayouts[l].name; //at position 0 there is always the mark
+			                
 			                //for each item, i need the number of copies for page and the number of pages (sheets)
 			                
 			                var pagesToPrint = pages.length;
@@ -30,6 +32,7 @@
 			                itemsMap[itemName] = pagesToPrint;
 			                
 			                tmpLayouts[l].pages = onePageLayout;
+			                delete tmpLayouts[l].name;
 		                }
 		                msg.payload.layouts = tmpLayouts;
 		                msg.payload.itemsMap = itemsMap;
@@ -51,6 +54,9 @@
 					    sourceOrderId: msg.payload.code
 					    };
 				    const order = client.createOrder(destinationName, orderData);
+				    
+				    var itemsMap = msg.payload.itemsMap; //where are stored the number of pages to print for each item
+				    
 				    
 					//order.addStockItem({ code: '123', quantity: 10 });
 				
@@ -90,7 +96,7 @@
 							continue;
 						}
 						
-						const quantity = 1; //should be always one in out case
+						const quantity = itemObj.quantity;
 						const path = msg.payload.attachment + itemName;// 'https://s3-eu-west-1.amazonaws.com/oneflow-public/business_cards.pdf';
 						node.warn("Order2SiteFlow path " + path);
 						
@@ -99,6 +105,8 @@
 						
 						
 						const item = order.addItem({ sku, quantity, sourceItemId });
+						
+						item.printQuantity = itemsMap[itemName];
 	
 						//must be an array of objects
 						item.attributes = []
@@ -115,10 +123,9 @@
 						}
 					}
 					
-				    // ... instructions to complete the order data ...
+					mag.payload = order;
 				    
-				    //const result = await 
-				    submitOrder(client, node);
+				    //submitOrder(client, node);
 	            }
                 //
                 
@@ -175,6 +182,7 @@
 		      if (items.hasOwnProperty(itemName)) { 
 			       var item = items[itemName];
 			       var layout = runPackerCallback(item, itemName, ref)
+			       layout.name = itemName;
 			       console.log("layout" , layout);
 			       allLayouts.push(layout);
 			  }
