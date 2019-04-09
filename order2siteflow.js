@@ -11,9 +11,35 @@
         	
         		node.warn("Order2SiteFlow input " + msg.payload.attachment);
         		
-        		if(msg.payload.attachment == null)
-	                msg.payload.layouts = runPacker(msg.payload.clientDetails, node);
-	            else{
+        		if(msg.payload.attachment == null){
+	                var tmpLayouts = runPacker(msg.payload.clientDetails, node);
+	                
+	                if(msg.payload.singlepagelayout != null){
+		               //9 april 2019: dpi decided to have only one pages layout and to get the number of copies to print
+		               
+		               var itemsMap = {}
+		               
+		                for(var l : tmpLayouts){
+			                var pages = tmpLayouts[l].pages;
+			                var onePageLayout = [pages[0]];
+			                var itemName = [tmpLayouts[l].assets[1]]; //at position 0 there is always the mark
+			                //for each item, i need the number of copies for page and the number of pages (sheets)
+			                
+			                var pagesToPrint = pages.length;
+			                
+			                itemsMap[itemName] = pagesToPrint;
+			                
+			                tmpLayouts[l].pages = onePageLayout;
+		                }
+		                msg.payload.layouts = tmpLayouts;
+		                msg.payload.itemsMap = itemsMap;
+	                }else{
+		                 msg.payload.layouts = tmpLayouts;
+	                }
+	                
+	                
+	                
+	            }else{
 		             const client = new OneflowClient(
 				    	"https://orders.oneflow.io/api",
 				    	msg.payload.token,
@@ -25,6 +51,9 @@
 					    sourceOrderId: msg.payload.code
 					    };
 				    const order = client.createOrder(destinationName, orderData);
+				    
+				    var itemsMap = msg.payload.itemsMap; //where are stored the number of pages to print for each item
+				    
 				    
 					//order.addStockItem({ code: '123', quantity: 10 });
 				
@@ -64,7 +93,7 @@
 							continue;
 						}
 						
-						const quantity = 1; //should be always one in out case
+						const quantity = itemObj.quantity;
 						const path = msg.payload.attachment + itemName;// 'https://s3-eu-west-1.amazonaws.com/oneflow-public/business_cards.pdf';
 						node.warn("Order2SiteFlow path " + path);
 						
@@ -73,6 +102,8 @@
 						
 						
 						const item = order.addItem({ sku, quantity, sourceItemId });
+						
+						item.printQuantity = itemsMap[itemName];
 	
 						//must be an array of objects
 						item.attributes = []
@@ -89,10 +120,9 @@
 						}
 					}
 					
-				    // ... instructions to complete the order data ...
+					mag.payload = order;
 				    
-				    //const result = await 
-				    submitOrder(client, node);
+				    //submitOrder(client, node);
 	            }
                 //
                 
