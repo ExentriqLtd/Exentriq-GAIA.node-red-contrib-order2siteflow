@@ -29,9 +29,9 @@
 			                node.warn("Order2SiteFlow input " + pages);
 			                var onePageLayout = [];
 			                onePageLayout.push(pages[0]);
-			                var itemName = layoutObj.name; //at position 0 there is always the mark
+			                var itemName = layoutObj.itemName; //at position 0 there is always the mark
 			                
-			                node.warn("Order2SiteFlow input " + itemName);
+			                node.warn("Order2SiteFlow itemName " + itemName);
 			                
 			                //for each item, i need the number of copies for page and the number of pages (sheets)
 			                
@@ -196,8 +196,6 @@
 		      if (items.hasOwnProperty(itemName)) { 
 			       var item = items[itemName];
 			       var layout = runPackerCallback(item, itemName, ref)
-			       layout.name = itemName;
-			       console.log("layout" , layout);
 			       allLayouts.push(layout);
 			  }
 			}
