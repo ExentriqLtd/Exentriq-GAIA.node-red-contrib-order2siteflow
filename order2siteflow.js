@@ -31,13 +31,15 @@
 			                onePageLayout.push(pages[0]);
 			                var itemName = tmpLayouts[l].name; //at position 0 there is always the mark
 			                
-			                node.warn("Order2SiteFlow input " + pages);
+			                node.warn("Order2SiteFlow input " + itemName);
 			                
 			                //for each item, i need the number of copies for page and the number of pages (sheets)
 			                
 			                var pagesToPrint = pages.length;
 			                
 			                itemsMap[itemName] = pagesToPrint;
+			                
+			                node.warn("Order2SiteFlow input " + itemName + " pagesToPrint " + pagesToPrint);
 			                
 			                tmpLayouts[l].pages = onePageLayout;
 			                delete tmpLayouts[l].name;
