@@ -20,7 +20,8 @@
 		               var itemsMap = {};
 		               
 		                for(var l = 0; l < tmpLayouts.length; l++){
-			                var pages = tmpLayouts[l].pages;
+			                var layoutObj = JSON.parse(tmpLayouts[l])
+			                var pages = layoutObj.pages;
 			                node.warn("Order2SiteFlow input " + pages);
 			                var onePageLayout = [];
 			                onePageLayout.push(pages[0]);
