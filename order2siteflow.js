@@ -166,9 +166,28 @@
     }
     
     async function submitOrder(client, ref){
-	    const res = await client.submitOrder();
+	    try {
+		const savedOrder = await client.submitOrder();
+			if(ref){
+				ref.warn("Success");
+				ref.warn("Order ID        :", savedOrder._id);
+			}
+		} catch (err) {
+			if(ref){
+				ref.warn("Error");
+				ref.warn(err.message);
+				if (err.code == 208) {
+					err.validations.forEach(validation => {
+						ref.warn(validation.path, " -> ", validation.message);
+					});
+				}
+			}
+	
+		}
+		
+	    /*const res = await client.submitOrder();
 	    if(ref)
-			ref.warn("Order2SiteFlow submitOrder " + res);
+			ref.warn("Order2SiteFlow submitOrder " + res);*/
     }
     
     var packer = null;
