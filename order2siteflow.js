@@ -12,7 +12,19 @@
         		node.warn("Order2SiteFlow input " + msg.payload.attachment);
         		
         		if(msg.payload.attachment == null){
-	                var tmpLayouts = runPacker(msg.payload.clientDetails, node);
+	        		
+	        		var items = msg.payload.items;
+	        		var itemsMap = {};
+	        		
+	        		for(var i=0; i < items.length; i++){
+		        		var obj = {
+			        		final_art : msg.payload.ftpGetFile + items[i].path + "/" + items[i].finalAssetReady,
+			        		cut_file : msg.payload.ftpGetFile + items[i].cutfile + "/" + items[i].cutFileReady,
+		        		}
+		        		itemsMap[items[i].key] = obj;
+	        		}
+	        		
+	                var tmpLayouts = runPacker(msg.payload.clientDetails, itemsMap, node);
 	                
 	                node.warn("Order2SiteFlow singlepagelayout " + msg.payload.singlepagelayout);
 	                
@@ -133,7 +145,7 @@
 						
 	
 						item.addComponent({ code: 'Artwork', path, fetch });
-						item.addComponent({ code: 'Cut_File', path, fetch });
+						item.addComponent({ code: 'Cut_File', path , fetch });
 						}
 					}
 					
@@ -175,7 +187,7 @@
 		return input/scale;
 	}
 	
-	function runPacker(clientDetails, ref){
+	function runPacker(clientDetails,itemsMap, ref){
 			var allLayouts = [];
 		
 			if(ref)
@@ -195,14 +207,14 @@
 			for (var itemName in items) {
 		      if (items.hasOwnProperty(itemName)) { 
 			       var item = items[itemName];
-			       var layout = runPackerCallback(item, itemName, ref)
+			       var layout = runPackerCallback(item, itemName,itemsMap, ref)
 			       allLayouts.push(layout);
 			  }
 			}
 			return allLayouts;
 	}
 	
-	function runPackerCallback(item, itemName, ref){	
+	function runPackerCallback(item, itemName, itemsMap, ref){	
 			var res = {
 					"defaults": {
 				      "units": unit,//"mm",
@@ -283,7 +295,7 @@
 			  w+=cutLinesSpace;
 		      
 		      res.assets[itemName] = {
-			      "url": item.final
+			      "url": itemsMap["final_art"]; //item.final
 		      }
 		      res.classes.push({
 		        "height": h,
