@@ -210,6 +210,13 @@
 			       //var layout = runPackerCallback(item, itemName,itemsArtMap, ref)
 			       //change to couple of layout, final and cut_file
 			       var layouts = runPackerCallback(item, itemName,itemsArtMap, ref)
+			       
+			       if(ref)
+				   	ref.warn("Order2SiteFlow finalArt " + layouts.finalArt);
+				   	
+				   if(ref)
+				   	ref.warn("Order2SiteFlow cutFile " + layouts.cutFile);
+			       
 			       allLayouts.push(layouts.finalArt);
 			       allLayouts.push(layouts.cutFile);
 			  }
@@ -391,6 +398,11 @@
 		cut.assets[itemName] = {
 			      "url": itemsArtMap[itemName]["cut_file"] //item.final
 		      }
+		      
+		if(ref)
+			  	ref.warn("Order2SiteFlow create cut layout " + itemsArtMap[itemName]["cut_file"]);
+
+		      
 		cut.itemName = itemName+ "_cutfile";  
 		var cutJson = JSON.stringify(cut);
 		couple["cutFile"] = cutJson;
