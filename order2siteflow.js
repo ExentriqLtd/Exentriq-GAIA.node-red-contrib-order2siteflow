@@ -389,7 +389,7 @@
 		res.itemName = itemName;
 		var json = JSON.stringify(res);
 		var couple = {
-			"finalArt" : res
+			"finalArt" : json
 		}
 		
 		//generate also cut_file_template
