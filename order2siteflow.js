@@ -120,7 +120,7 @@
 						}
 						
 						const quantity = itemObj.quantity;
-						var path = 'https://s3-eu-west-1.amazonaws.com/oneflow-public/business_cards.pdf';//msg.payload.attachment + itemName;
+						var path = msg.payload.attachment + itemName;// 'https://s3-eu-west-1.amazonaws.com/oneflow-public/business_cards.pdf';
 						node.warn("Order2SiteFlow path " + path);
 						
 						const fetch = true;
@@ -135,18 +135,18 @@
 						node.warn("Order2SiteFlow item.printQuantity " + item.printQuantity);
 						
 						//must be an array of objects
-						/*item.attributes = []
+						item.attributes = []
 						
 						if(itemObj.material){
 							item.attributes.push({
 								lamination: itemObj.material
 							})
-						}*/
+						}
 						
 	
 						item.addComponent({ code: 'Artwork', path, fetch });
 						
-						var cutFilePath = path;// + "_cutfile";
+						var cutFilePath = path + "_cutfile";
 						
 						item.addComponent({ code: 'Cut_File', path: cutFilePath , fetch });
 						}
