@@ -148,7 +148,7 @@
 						
 						var cutFilePath = path;// + "_cutfile";
 						
-						item.addComponent({ code: 'Cut_File', cutFilePath , fetch });
+						item.addComponent({ code: 'Cut_File', path: cutFilePath , fetch });
 						}
 					}
 					
