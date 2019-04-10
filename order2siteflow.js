@@ -207,8 +207,11 @@
 			for (var itemName in items) {
 		      if (items.hasOwnProperty(itemName)) { 
 			       var item = items[itemName];
-			       var layout = runPackerCallback(item, itemName,itemsArtMap, ref)
-			       allLayouts.push(layout);
+			       //var layout = runPackerCallback(item, itemName,itemsArtMap, ref)
+			       //change to couple of layout, final and cut_file
+			       var layouts = runPackerCallback(item, itemName,itemsArtMap, ref)
+			       allLayouts.push(layouts.finalArt);
+			       allLayouts.push(layouts.cutFile);
 			  }
 			}
 			return allLayouts;
@@ -378,7 +381,21 @@
 		
 		res.itemName = itemName;
 		var json = JSON.stringify(res);
-		return json;
+		var couple = {
+			"finalArt" : res
+		}
+		
+		//generate also cut_file_template
+		var cut = JSON.parse(json); //a simple way to clone obj
+		
+		cut.assets[itemName] = {
+			      "url": itemsArtMap[itemName]["cut_file"] //item.final
+		      }
+		cut.itemName = itemName+ "_cutfile";  
+		var cutJson = JSON.stringify(cut);
+		couple["cutFile"] = cutJson;
+		    
+		return couple;
 	};
 	
 	function examplePacker(){
