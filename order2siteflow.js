@@ -111,7 +111,7 @@
 					for (var itemName in items) {
 				      if (items.hasOwnProperty(itemName)) { 
 					    var itemObj = items[itemName];
-						const sourceItemId = orderData.sourceOrderId + itemName; //missing
+						const sourceItemId = itemName; //missing
 						const sku = itemObj.sku;//"llama-stickers"; //put in catalog
 						
 						if(!sku || sku == ""){
@@ -135,13 +135,13 @@
 						node.warn("Order2SiteFlow item.printQuantity " + item.printQuantity);
 						
 						//must be an array of objects
-						item.attributes = []
+						/*item.attributes = []
 						
 						if(itemObj.material){
 							item.attributes.push({
 								lamination: itemObj.material
 							})
-						}
+						}*/
 						
 	
 						item.addComponent({ code: 'Artwork', path, fetch });
