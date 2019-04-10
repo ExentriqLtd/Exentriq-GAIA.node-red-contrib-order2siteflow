@@ -145,7 +145,7 @@
 						
 	
 						item.addComponent({ code: 'Artwork', path, fetch });
-						item.addComponent({ code: 'Cut_File', path , fetch });
+						item.addComponent({ code: 'Cut_File', path + "_cutfile" , fetch });
 						}
 					}
 					
