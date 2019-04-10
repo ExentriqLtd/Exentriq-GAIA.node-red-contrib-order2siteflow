@@ -14,17 +14,17 @@
         		if(msg.payload.attachment == null){
 	        		
 	        		var items = msg.payload.items;
-	        		var itemsMap = {};
+	        		var itemsArtMap = {};
 	        		
 	        		for(var i=0; i < items.length; i++){
 		        		var obj = {
 			        		final_art : msg.payload.ftpGetFile + items[i].path + "/" + items[i].finalAssetReady,
-			        		cut_file : msg.payload.ftpGetFile + items[i].cutfile + "/" + items[i].cutFileReady,
+			        		cut_file : msg.payload.ftpGetFile + items[i].cutfile + "/" + items[i].cutFileReady
 		        		}
-		        		itemsMap[items[i].key] = obj;
+		        		itemsArtMap[items[i].key] = obj;
 	        		}
 	        		
-	                var tmpLayouts = runPacker(msg.payload.clientDetails, itemsMap, node);
+	                var tmpLayouts = runPacker(msg.payload.clientDetails, itemsArtMap, node);
 	                
 	                node.warn("Order2SiteFlow singlepagelayout " + msg.payload.singlepagelayout);
 	                
@@ -187,7 +187,7 @@
 		return input/scale;
 	}
 	
-	function runPacker(clientDetails,itemsMap, ref){
+	function runPacker(clientDetails,itemsArtMap, ref){
 			var allLayouts = [];
 		
 			if(ref)
@@ -207,14 +207,14 @@
 			for (var itemName in items) {
 		      if (items.hasOwnProperty(itemName)) { 
 			       var item = items[itemName];
-			       var layout = runPackerCallback(item, itemName,itemsMap, ref)
+			       var layout = runPackerCallback(item, itemsArtMap,itemsMap, ref)
 			       allLayouts.push(layout);
 			  }
 			}
 			return allLayouts;
 	}
 	
-	function runPackerCallback(item, itemName, itemsMap, ref){	
+	function runPackerCallback(item, itemName, itemsArtMap, ref){	
 			var res = {
 					"defaults": {
 				      "units": unit,//"mm",
@@ -295,7 +295,7 @@
 			  w+=cutLinesSpace;
 		      
 		      res.assets[itemName] = {
-			      "url": itemsMap["final_art"]; //item.final
+			      "url": itemsArtMap[itemName]["final_art"] //item.final
 		      }
 		      res.classes.push({
 		        "height": h,
