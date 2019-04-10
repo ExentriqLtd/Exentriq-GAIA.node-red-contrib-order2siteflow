@@ -120,7 +120,7 @@
 						}
 						
 						const quantity = itemObj.quantity;
-						var path = msg.payload.attachment + itemName;// 'https://s3-eu-west-1.amazonaws.com/oneflow-public/business_cards.pdf';
+						var path = 'https://s3-eu-west-1.amazonaws.com/oneflow-public/business_cards.pdf';//msg.payload.attachment + itemName;
 						node.warn("Order2SiteFlow path " + path);
 						
 						const fetch = true;
@@ -146,7 +146,7 @@
 	
 						item.addComponent({ code: 'Artwork', path, fetch });
 						
-						var cutFilePath = path + "_cutfile";
+						var cutFilePath = path;// + "_cutfile";
 						
 						item.addComponent({ code: 'Cut_File', cutFilePath , fetch });
 						}
