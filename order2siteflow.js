@@ -207,7 +207,7 @@
 			for (var itemName in items) {
 		      if (items.hasOwnProperty(itemName)) { 
 			       var item = items[itemName];
-			       var layout = runPackerCallback(item, itemsArtMap,itemsMap, ref)
+			       var layout = runPackerCallback(item, itemName,itemsArtMap, ref)
 			       allLayouts.push(layout);
 			  }
 			}
