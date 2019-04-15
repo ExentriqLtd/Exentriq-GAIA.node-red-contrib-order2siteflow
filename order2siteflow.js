@@ -343,10 +343,10 @@
 				          } 
 				
 				
-				var pattern1 = count == 1 || Math.random() > 0.5;
-				var pattern2 = count == 2 || Math.random() > 0.5;
-				var pattern3 = count == 3 || Math.random() > 0.5;
-				var pattern4 = count == 4 || Math.random() > 0.5;
+				var pattern1 = count == 1;
+				var pattern2 = count == 2;
+				var pattern3 = count == 3;
+				var pattern4 = count == 4;
 				
 				var pages = [];
 				pages[0] = {
@@ -380,12 +380,22 @@
 					pages[0].elements.push(dotMiddleRight);
 					pages[0].elements.push(dotMiddleLeft);
 				}else{
-					pages[0].elements.push(dotTopRight);
-					pages[0].elements.push(dotTopLeft);
-					pages[0].elements.push(dotBottomMiddle);
-					pages[0].elements.push(dotMiddleRight);
-					pages[0].elements.push(dotMiddleLeft);
-					pages[0].elements.push(dotBottomLeft);
+					if(Math.random() > 0.6)
+						pages[0].elements.push(dotTopMiddle);
+					if(Math.random() > 0.6)
+						pages[0].elements.push(dotTopRight);
+					if(Math.random() > 0.6)
+						pages[0].elements.push(dotTopLeft);
+					if(Math.random() > 0.6)
+						pages[0].elements.push(dotBottomMiddle);
+					if(Math.random() > 0.6)
+						pages[0].elements.push(dotMiddleRight);
+					if(Math.random() > 0.6)
+						pages[0].elements.push(dotMiddleLeft);
+					if(Math.random() > 0.6)
+						pages[0].elements.push(dotBottomLeft);
+					if(Math.random() > 0.6)
+						pages[0].elements.push(dotBottomRight);
 				}
 		
 		var pageIndex = 0;
