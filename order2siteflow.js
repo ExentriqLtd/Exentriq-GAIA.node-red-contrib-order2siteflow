@@ -139,7 +139,7 @@
 						
 						if(itemObj.material){
 							item.attributes.push({
-								lamination: itemObj.material
+								Lamination: itemObj.material
 							})
 						}
 						
