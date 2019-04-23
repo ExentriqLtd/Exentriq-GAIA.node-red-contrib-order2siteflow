@@ -153,7 +153,9 @@
 						
 						var cutFilePath = path + "_cutfile";
 						
-						item.addComponent({ code: 'Cut_File', path: cutFilePath , fetch });
+						if(sku.match("manual") == null){
+							item.addComponent({ code: 'Cut_File', path: cutFilePath , fetch });
+						}
 						}
 					}
 					
