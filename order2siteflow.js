@@ -74,7 +74,7 @@
 				    
 				    const destinationName  = msg.payload.destinationName;
 				    const orderData  = { 
-					    sourceOrderId: msg.payload.code
+					    sourceOrderId: (msg.payload.prefix ? msg.payload.prefix : "") + msg.payload.code
 					    };
 				    const order = client.createOrder(destinationName, orderData);
 				    
@@ -121,6 +121,11 @@
 						
 						const quantity = itemObj.quantity;
 						var path = msg.payload.attachment + itemName;// 'https://s3-eu-west-1.amazonaws.com/oneflow-public/business_cards.pdf';
+						
+						if(sku.match("manual")){
+							path = msg.payload.serverName + itemObj.upload;
+						}
+						
 						node.warn("Order2SiteFlow path " + path);
 						
 						const fetch = true;
