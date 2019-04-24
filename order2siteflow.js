@@ -135,6 +135,7 @@
 						const item = order.addItem({ sku, quantity, sourceItemId });
 						
 						item.printQuantity = itemsMap[itemName];
+						item.ItemSheetQuantity = itemsMap[itemName];
 	
 						node.warn("Order2SiteFlow item.quantity " + item.quantity);
 						node.warn("Order2SiteFlow item.printQuantity " + item.printQuantity);
