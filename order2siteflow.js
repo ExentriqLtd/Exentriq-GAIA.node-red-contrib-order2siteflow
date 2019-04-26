@@ -139,9 +139,9 @@
 						node.warn("Order2SiteFlow item.printQuantity " + item.printQuantity);
 						
 						//must be an array of objects
-						var attributes = [
+						var attributes = {
 							ItemSheetQuantity : itemsMap[itemName]
-						]
+						}
 						
 						if(itemObj.material){
 							attributes.push({
