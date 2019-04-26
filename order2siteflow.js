@@ -9,8 +9,7 @@
         try {
             this.on('input', function(msg) {
         	
-        		node.warn("Order2SiteFlow input " + msg.payload.attachment);
-        		
+        		//layout preparation
         		if(msg.payload.attachment == null){
 	        		
 	        		var items = msg.payload.items;
@@ -26,19 +25,17 @@
 	        		
 	                var tmpLayouts = runPacker(msg.payload.clientDetails, itemsArtMap, node);
 	                
-	                node.warn("Order2SiteFlow singlepagelayout " + msg.payload.singlepagelayout);
 	                
 	                if(msg.payload.singlepagelayout != null){
 		               //9 april 2019: dpi decided to have only one pages layout and to get the number of copies to print
 		               
 		               var itemsMap = {};
 		               
-		               node.warn("Order2SiteFlow tmpLayouts " + tmpLayouts.length);
 		               
 		                for(var l = 0; l < tmpLayouts.length; l++){
 			                var layoutObj = JSON.parse(tmpLayouts[l])
 			                var pages = layoutObj.pages;
-			                node.warn("Order2SiteFlow input " + pages);
+			                
 			                var onePageLayout = [];
 			                onePageLayout.push(pages[0]);
 			                var itemName = layoutObj.itemName; //at position 0 there is always the mark
@@ -65,7 +62,9 @@
 	                
 	                
 	                
-	            }else{
+	            }
+	            //oneflow order creation
+	            else{
 		             const client = new OneflowClient(
 				    	"https://orders.oneflow.io/api",
 				    	msg.payload.token,
@@ -412,9 +411,6 @@
 		
 		try{
 		
-		      if(ref)
-			  	ref.warn("Order2SiteFlow itemName " + itemName);
-			
 		      //var item = items[itemName];
 		      var size = item.size;
 		      var w = parseFloat(size.split("x")[0].replace("\"",""));
@@ -435,13 +431,16 @@
 		        "asset": itemName
 		      })
 		        
-		       if(ref)
-			  	ref.warn("Order2SiteFlow quantity " + item.quantity);
-			  	
-		      for(var i=0; i < item.quantity; i++){
+		      var firstPageIsFull = false; //this is a new option for labelllama: if stickers not fill the page, add more to fill all the page
+		      for(var i=0; i < item.quantity || !firstPageIsFull; i++){
 		        
 		        node = packer.Insert(h, w, packMethod);
 				if(node.height == 0){
+					firstPageIsFull = true;
+					if(i > item.quantity){
+						continue;
+					}
+					
 					//page
 					pageIndex++;
 					pages[pageIndex] = {
