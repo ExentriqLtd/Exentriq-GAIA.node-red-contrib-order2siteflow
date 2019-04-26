@@ -139,16 +139,16 @@
 						node.warn("Order2SiteFlow item.printQuantity " + item.printQuantity);
 						
 						//must be an array of objects
-						var attributes = {
-							ItemSheetQuantity : itemsMap[itemName]
-						}
+						item.attributes = [
+							{ItemSheetQuantity : itemsMap[itemName]}
+						]
 						
 						if(itemObj.material){
-							attributes.Lamination = itemObj.material;
+							item.attributes.push({
+								Lamination: itemObj.material
+							})
 						}
 						
-						//item.addComponent({attributes: attributes});
-						item.attributes = attributes;
 	
 						item.addComponent({ code: 'Artwork', path, fetch });
 						
