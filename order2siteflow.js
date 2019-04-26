@@ -144,9 +144,7 @@
 						}
 						
 						if(itemObj.material){
-							attributes.push({
-								Lamination: itemObj.material
-							})
+							attributes.Lamination = itemObj.material;
 						}
 						
 						item.addComponent({attributes: attributes});
