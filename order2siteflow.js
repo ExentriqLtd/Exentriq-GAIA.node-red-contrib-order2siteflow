@@ -134,20 +134,22 @@
 						const item = order.addItem({ sku, quantity, sourceItemId });
 						
 						item.printQuantity = itemsMap[itemName];
-						item.ItemSheetQuantity = itemsMap[itemName];
-	
+						
 						node.warn("Order2SiteFlow item.quantity " + item.quantity);
 						node.warn("Order2SiteFlow item.printQuantity " + item.printQuantity);
 						
 						//must be an array of objects
-						item.attributes = []
+						var attributes = [
+							ItemSheetQuantity : itemsMap[itemName]
+						]
 						
 						if(itemObj.material){
-							item.attributes.push({
+							attributes.push({
 								Lamination: itemObj.material
 							})
 						}
 						
+						item.addComponent({attributes: attributes});
 	
 						item.addComponent({ code: 'Artwork', path, fetch });
 						
