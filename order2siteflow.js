@@ -147,7 +147,8 @@
 							attributes.Lamination = itemObj.material;
 						}
 						
-						item.addComponent({attributes: attributes});
+						//item.addComponent({attributes: attributes});
+						item.attributes = attributes;
 	
 						item.addComponent({ code: 'Artwork', path, fetch });
 						
