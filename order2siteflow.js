@@ -92,8 +92,9 @@
 							postcode: shipData.zipCode
 						},
 						carrier: {
-							code: "customer",
-							service: "shipping"
+							//code: "customer",
+							//service: "shipping"
+							alias: shipData.code
 						}
 					});
 					
