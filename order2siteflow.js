@@ -83,6 +83,8 @@
 					//order.addStockItem({ code: '123', quantity: 10 });
 				
 					var shipData = msg.payload.order["shipping_data"];
+					
+					var shipType = msg.payload.order["shipping_type"];
 					order.addShipment({
 						shipTo: {
 							name: shipData.firstName + " " + shipData.lastName,
@@ -94,9 +96,12 @@
 						carrier: {
 							//code: "customer",
 							//service: "shipping"
-							alias: shipData.code
+							alias: shipType.code
 						}
 					});
+					
+					
+					node.warn("Order2SiteFlow shipping " + shipType.code);
 					
 					var items;
 					if(typeof(msg.payload.order) == "string"){
