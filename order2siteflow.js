@@ -145,18 +145,18 @@
 						node.warn("Order2SiteFlow item.printQuantity " + item.printQuantity);
 						
 						//must be an array of objects
-						item.attributes = [
-							{ItemSheetQuantity : itemsMap[itemName]}
-						]
+						var attributes = 
+							{
+								ItemSheetQuantity : itemsMap[itemName]
+							}
+						
 						
 						if(itemObj.material){
-							item.attributes.push({
-								Lamination: itemObj.material
-							})
+							attributes["Lamination"] = itemObj.material
 						}
 						
 	
-						item.addComponent({ code: 'Artwork', path, fetch });
+						item.addComponent({ code: 'Artwork', path, fetch, "attributes": attributes });
 						
 						var cutFilePath = path + "_cutfile";
 						
