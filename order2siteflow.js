@@ -303,7 +303,7 @@
 				}
 				
 		var packer = new MaxRectsBinPack(pageWidthNoMargins, pageHeightNoMargins);
-		var dotWidth = 0.1;
+		var dotWidth = 0.1875;
 				
 		var rand = Math.random() * pageWidth/3;
 				
