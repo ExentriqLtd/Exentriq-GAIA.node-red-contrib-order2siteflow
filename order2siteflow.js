@@ -180,7 +180,7 @@
 					
 					//submits only production orders			    
 				    if(msg.payload.prefix == null)
-					    submitOrder(client, node);*/
+					    submitOrder(client, node);
 	            }
                 //
                 
