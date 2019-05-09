@@ -178,8 +178,8 @@
 					msg.payload = order;
 					
 					//submits only production orders			    
-				    if(msg.payload.prefix == null)
-					    submitOrder(client, node);
+				    /*if(msg.payload.prefix == null)
+					    submitOrder(client, node);*/
 	            }
                 //
                 
