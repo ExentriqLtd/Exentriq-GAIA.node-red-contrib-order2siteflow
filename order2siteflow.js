@@ -143,24 +143,25 @@
 						
 						const item = order.addItem({ sku, quantity, sourceItemId });
 						
-						item.printQuantity = itemsMap[itemName];
-						
 						node.warn("Order2SiteFlow item.quantity " + item.quantity);
 						node.warn("Order2SiteFlow item.printQuantity " + item.printQuantity);
 						
 						//must be an array of objects
 						var attributes = 
 							{
-								ItemSheetQuantity : itemsMap[itemName]
+								
 							}
 						
 						
-						if(itemObj.material){
-							attributes["Lamination"] = itemObj.material
-						}
+						
 						
 						
 						if(fetch){
+							item.printQuantity = itemsMap[itemName];
+							attributes["ItemSheetQuantity"] =  itemsMap[itemName];
+							if(itemObj.material){
+								attributes["Lamination"] = itemObj.material
+							}
 							item.addComponent({ code: 'Artwork', path, fetch, "attributes": attributes });
 						}else{
 							item.addComponent({ code: 'Artwork', path, fetch, "attributes": attributes, "localFile": true });
@@ -178,7 +179,7 @@
 					msg.payload = order;
 					
 					//submits only production orders			    
-				    /*if(msg.payload.prefix == null)
+				    if(msg.payload.prefix == null)
 					    submitOrder(client, node);*/
 	            }
                 //
