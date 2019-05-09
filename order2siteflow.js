@@ -174,8 +174,10 @@
 					}
 					
 					msg.payload = order;
-				    
-				    submitOrder(client, node);
+					
+					//submits only production orders			    
+				    if(msg.payload.prefix == null)
+					    submitOrder(client, node);
 	            }
                 //
                 
