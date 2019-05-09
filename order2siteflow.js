@@ -137,6 +137,8 @@
 						
 						node.warn("Order2SiteFlow path " + path);
 						
+						node.warn("Order2SiteFlow sku " + sku + fetch);
+						
 						
 						
 						const item = order.addItem({ sku, quantity, sourceItemId });
