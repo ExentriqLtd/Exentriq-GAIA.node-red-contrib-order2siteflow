@@ -127,13 +127,15 @@
 						const quantity = itemObj.quantity;
 						var path = msg.payload.attachment + itemName;// 'https://s3-eu-west-1.amazonaws.com/oneflow-public/business_cards.pdf';
 						
+						
+						var fetch = true;
+						
 						if(sku.match("manual")){
 							path = msg.payload.serverName + itemObj.upload;
+							fetch = false;
 						}
 						
 						node.warn("Order2SiteFlow path " + path);
-						
-						const fetch = true;
 						
 						
 						
@@ -155,8 +157,13 @@
 							attributes["Lamination"] = itemObj.material
 						}
 						
-	
-						item.addComponent({ code: 'Artwork', path, fetch, "attributes": attributes });
+						
+						if(fetch){
+							item.addComponent({ code: 'Artwork', path, fetch, "attributes": attributes });
+						}else{
+							item.addComponent({ code: 'Artwork', path, fetch, "attributes": attributes, "localFile": true });
+						}
+						
 						
 						var cutFilePath = path + "_cutfile";
 						
