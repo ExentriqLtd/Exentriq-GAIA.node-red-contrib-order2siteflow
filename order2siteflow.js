@@ -153,7 +153,9 @@
 							}
 						
 						
-						
+						if(itemObj.materialSelect){
+								attributes["Material"] = itemObj.materialSelect;
+							}
 						
 						
 						if(fetch){
