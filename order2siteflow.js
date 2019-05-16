@@ -437,6 +437,9 @@
 		      var w = parseFloat(size.split("x")[0].replace("\"",""));
 			  var h = parseFloat(size.split("x")[1].replace("\"",""));
 			  
+			  w += 0.125
+			  h += 0.125
+			  
 			  h+=cutLinesSpace;
 			  w+=cutLinesSpace;
 		      
