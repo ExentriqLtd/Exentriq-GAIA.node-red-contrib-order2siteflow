@@ -35,6 +35,7 @@
 		                for(var l = 0; l < tmpLayouts.length; l++){
 			                var layoutObj = JSON.parse(tmpLayouts[l])
 			                var pages = layoutObj.pages;
+			                var elements = pages[0].elements;
 			                
 			                var onePageLayout = [];
 			                onePageLayout.push(pages[0]);
@@ -44,7 +45,7 @@
 			                
 			                //for each item, i need the number of copies for page and the number of pages (sheets)
 			                
-			                var pagesToPrint = pages.length;
+			                var pagesToPrint = {pages: pages.length, elements: elements};
 			                
 			                itemsMap[itemName] = pagesToPrint;
 			                
@@ -159,8 +160,11 @@
 						
 						
 						if(fetch){
-							item.printQuantity = itemsMap[itemName];
-							attributes["ItemSheetQuantity"] =  itemsMap[itemName];
+							item.printQuantity = itemsMap[itemName].pages;
+							attributes["ItemSheetQuantity"] =  itemsMap[itemName].pages;
+							
+							attributes["QuantityPerSheet"] =  itemsMap[itemName].elements;
+							
 							if(itemObj.material){
 								attributes["Lamination"] = itemObj.material
 							}
