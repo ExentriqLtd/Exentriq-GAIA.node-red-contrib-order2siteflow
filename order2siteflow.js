@@ -45,11 +45,11 @@
 			                
 			                //for each item, i need the number of copies for page and the number of pages (sheets)
 			                
-			                var pagesToPrint = {pages: pages.length, elements: elements};
+			                var pagesToPrint = {pages: pages.length, elements: elements.length};
 			                
 			                itemsMap[itemName] = pagesToPrint;
 			                
-			                node.warn("Order2SiteFlow input " + itemName + " pagesToPrint " + pagesToPrint);
+			                node.warn("Order2SiteFlow input " + itemName + " pagesToPrint " + pages.length+ " elements " + elements.length);
 			                
 			                layoutObj.pages = onePageLayout;
 			                delete layoutObj.name;
