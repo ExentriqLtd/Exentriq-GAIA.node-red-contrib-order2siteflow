@@ -45,7 +45,7 @@
 			                
 			                //for each item, i need the number of copies for page and the number of pages (sheets)
 			                
-			                var pagesToPrint = {pages: pages.length, elements: elements.length};
+			                var pagesToPrint = {pages: pages.length, elements: elements};
 			                
 			                itemsMap[itemName] = pagesToPrint;
 			                
@@ -163,7 +163,15 @@
 							item.printQuantity = itemsMap[itemName].pages;
 							attributes["ItemSheetQuantity"] =  itemsMap[itemName].pages;
 							
-							attributes["QuantityPerSheet"] =  itemsMap[itemName].elements;
+							
+							var tot = 0;
+							for(var c =0; c < itemsMap[itemName].elements.length; c++){
+								if(itemsMap[itemName].elements[c]["class"] != "Mark"){
+									tot++;
+								}
+							}
+							attributes["QuantityPerSheet"] =  tot;
+							
 							
 							if(itemObj.material){
 								attributes["Lamination"] = itemObj.material
