@@ -186,7 +186,7 @@
 					
 					//submits only production orders			    
 				    if(msg.payload.prefix == null){
-					    submitOrder(client, node);
+					    submitOrder(client, node, msg);
 					 }else{
 						    node.send(msg);
 					    }
@@ -200,7 +200,7 @@
         }
     }
     
-    async function submitOrder(client, ref){
+    async function submitOrder(client, ref, msg){
 	    try {
 		var savedOrder = await client.submitOrder();
 			if(ref){
@@ -221,7 +221,7 @@
 	
 		}
 		msg.oneflowResponse = savedOrder;
-		node.send(msg);
+		ref.send(msg);
 		
 	    /*const res = await client.submitOrder();
 	    if(ref)
