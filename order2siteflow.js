@@ -166,11 +166,14 @@
 							
 							var tot = 0;
 							for(var c =0; c < itemsMap[itemName].elements.length; c++){
+								node.warn("Order2SiteFlow QuantityPerSheetClass " + itemsMap[itemName].elements[c]["class"]);
 								if(itemsMap[itemName].elements[c]["class"] != "Mark"){
 									tot++;
 								}
 							}
 							attributes["QuantityPerSheet"] =  tot;
+							
+							node.warn("Order2SiteFlow QuantityPerSheet " + tot);
 							
 							
 							if(itemObj.material){
