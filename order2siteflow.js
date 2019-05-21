@@ -61,7 +61,7 @@
 		                 msg.payload.layouts = tmpLayouts;
 	                }
 	                
-	                
+	                node.send(msg);
 	                
 	            }
 	            //oneflow order creation
@@ -185,12 +185,15 @@
 					msg.payload = order;
 					
 					//submits only production orders			    
-				    if(msg.payload.prefix == null)
+				    if(msg.payload.prefix == null){
 					    submitOrder(client, node);
+					 }else{
+						    node.send(msg);
+					    }
 	            }
                 //
                 
-                node.send(msg);
+                
             });
         } catch (e) {
 	        node.error("ops, there was an error!", msg);
@@ -199,10 +202,11 @@
     
     async function submitOrder(client, ref){
 	    try {
-		const savedOrder = await client.submitOrder();
+		var savedOrder = await client.submitOrder();
 			if(ref){
 				ref.warn("Success");
 				ref.warn("Order ID        :", savedOrder._id);
+				
 			}
 		} catch (err) {
 			if(ref){
@@ -216,6 +220,8 @@
 			}
 	
 		}
+		msg.oneflowResponse = savedOrder;
+		node.send(msg);
 		
 	    /*const res = await client.submitOrder();
 	    if(ref)
