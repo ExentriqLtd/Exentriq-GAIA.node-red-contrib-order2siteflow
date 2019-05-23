@@ -154,12 +154,13 @@
 							}
 						
 						
-						if(itemObj.materialSelect){
-								attributes["Material"] = itemObj.materialSelect;
-							}
+						
 						
 						
 						if(fetch){
+							if(itemObj.materialSelect){
+								attributes["Material"] = itemObj.materialSelect;
+							}
 							item.printQuantity = itemsMap[itemName].pages;
 							attributes["ItemSheetQuantity"] =  itemsMap[itemName].pages;
 							
@@ -181,7 +182,7 @@
 							}
 							item.addComponent({ code: 'Artwork', path, fetch, "attributes": attributes });
 						}else{
-							item.addComponent({ code: 'Artwork', path, fetch, "attributes": attributes, "localFile": true });
+							item.addComponent({ code: 'Artwork', path, fetch, "localFile": true });
 						}
 						
 						
