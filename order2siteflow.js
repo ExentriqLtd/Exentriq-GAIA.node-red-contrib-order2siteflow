@@ -471,7 +471,7 @@
 		      res.classes.push({
 		        "height": h,
 		        "width": w,
-		        "fit": "cover",
+		        "fit": "none",
 		        "type": "asset",
 		        "name": itemName,
 		        "asset": itemName
