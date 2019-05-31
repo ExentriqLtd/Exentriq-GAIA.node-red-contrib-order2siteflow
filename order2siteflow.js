@@ -245,7 +245,7 @@
 		if(ref){
 			msg.submitResult = "success";
 				ref.warn("Success");
-				ref.warn("Order ID        :", savedOrder._id);
+				ref.warn("Order ID:", savedOrder._id);
 				
 			}
 		} catch (err) {
@@ -262,7 +262,6 @@
 					});
 				}
 			}
-	
 		}
 		msg.oneflowResponse = savedOrder;
 		ref.send(msg);
