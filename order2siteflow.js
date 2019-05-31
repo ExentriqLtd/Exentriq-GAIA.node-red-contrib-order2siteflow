@@ -137,7 +137,7 @@
 						const quantity = itemObj.quantity;
 						var path = msg.payload.attachment + itemName;// 'https://s3-eu-west-1.amazonaws.com/oneflow-public/business_cards.pdf';
 						if(msg.validate != null){
-							itemName = itemName.replace("test","")
+							path = msg.payload.attachment + itemName.replace("test","")
 							}
 						
 						var fetch = true;
