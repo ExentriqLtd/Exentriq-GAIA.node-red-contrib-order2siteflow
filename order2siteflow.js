@@ -1,5 +1,4 @@
  const OneflowClient = require('oneflow-sdk-js');
- const OneflowClientValidator = require('./node_modules/oneflow-sdk-js/lib/oneflow-validator.js');
  
  module.exports = function(RED) {
 
@@ -63,20 +62,25 @@
 	            }
 	            //oneflow order creation
 	            else{
-		             const client = new OneflowClient(
-				    	"https://orders.oneflow.io/api",
-				    	msg.payload.token,
-				    	msg.payload.secret
-				    );
-				    
-				    node.warn("init validator " + msg.validate)
-				    
-				    //validator doens't work in oneflow
-				    const validator = new OneFlowClientValidator(
+		             var client;
+		             
+		             if(msg.validate){
+			             client = new OneflowClient(
 				    	"https://pro-api.oneflowcloud.com/api",
 				    	msg.payload.token,
 				    	msg.payload.secret
 				    );
+		             }else{
+			             client = new OneflowClient(
+				    	"https://orders.oneflow.io/api",
+				    	msg.payload.token,
+				    	msg.payload.secret
+				    );
+		             }
+		             
+				    
+				    node.warn("init validator " + msg.validate)
+				    
 				    
 				    node.warn("end init validator " + msg.validate)
 				    
@@ -193,8 +197,7 @@
 					node.warn("msg.validate " + msg.validate)
 					
 					if(msg.validate != null){
-						validator.order = client.order;
-						validateOrder(validator, node, msg);
+						validateOrder(client, node, msg);
 					}else{
 						submitOrder(client, node, msg);
 					}
