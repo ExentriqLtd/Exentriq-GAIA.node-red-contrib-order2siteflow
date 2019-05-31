@@ -79,11 +79,6 @@
 		             }
 		             
 				    
-				    node.warn("init validator " + msg.validate)
-				    
-				    
-				    node.warn("end init validator " + msg.validate)
-				    
 				    const destinationName  = msg.payload.destinationName;
 				    const orderData  = { 
 					    sourceOrderId: (msg.payload.prefix ? msg.payload.prefix : "") + msg.payload.code
@@ -136,9 +131,7 @@
 						
 						const quantity = itemObj.quantity;
 						var path = msg.payload.attachment + itemName;// 'https://s3-eu-west-1.amazonaws.com/oneflow-public/business_cards.pdf';
-						if(msg.validate != null){
-							path = msg.payload.attachment + itemName.replace("test","")
-							}
+						
 						
 						var fetch = true;
 						
@@ -219,7 +212,7 @@
 		    if(ref){
 			    ref.warn("validateOrder")
 		    }
-		    
+		   
 		var savedOrder = await validator.validateOrder();
 			if(ref){
 				ref.warn("Success");
@@ -244,14 +237,21 @@
     }
     
     async function submitOrder(client, ref, msg){
+	    
+	    msg.submitResult = "none";
+	    
 	    try {
 		var savedOrder = await client.submitOrder();
-			if(ref){
+		if(ref){
+			msg.submitResult = "success";
 				ref.warn("Success");
 				ref.warn("Order ID        :", savedOrder._id);
 				
 			}
 		} catch (err) {
+			
+			msg.submitResult = "error";
+			
 			if(ref){
 				ref.warn(err);
 				ref.warn("Error " + err.code);
