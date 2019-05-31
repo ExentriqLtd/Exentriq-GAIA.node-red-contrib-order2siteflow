@@ -1,5 +1,5 @@
  const OneflowClient = require('oneflow-sdk-js');
- const OneflowClientValidator = require('.node_modules/oneflow-sdk-js/lib/oneflow-validator.js');
+ const OneflowClientValidator = require('./node_modules/oneflow-sdk-js/lib/oneflow-validator.js');
  
  module.exports = function(RED) {
 
