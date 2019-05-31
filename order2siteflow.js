@@ -245,7 +245,7 @@
 		if(ref){
 			msg.submitResult = "success";
 				ref.warn("Success");
-				ref.warn("Order ID:", savedOrder._id);
+				ref.warn("Sieflow Order ID:", savedOrder._id);
 				
 			}
 		} catch (err) {
