@@ -68,12 +68,16 @@
 				    	msg.payload.secret
 				    );
 				    
+				    node.warn("init validator " + msg.validate)
+				    
 				    //validator doens't work in oneflow
-				    const validator = new OneflowClient(
+				    const validator = new OneFlowClientValidator(
 				    	"https://pro-api.oneflowcloud.com/api",
 				    	msg.payload.token,
 				    	msg.payload.secret
 				    );
+				    
+				    node.warn("end init validator " + msg.validate)
 				    
 				    const destinationName  = msg.payload.destinationName;
 				    const orderData  = { 
@@ -127,7 +131,9 @@
 						
 						const quantity = itemObj.quantity;
 						var path = msg.payload.attachment + itemName;// 'https://s3-eu-west-1.amazonaws.com/oneflow-public/business_cards.pdf';
-						
+						if(msg.validate != null){
+							itemName = itemName.replace("test","")
+							}
 						
 						var fetch = true;
 						
@@ -183,7 +189,10 @@
 					
 					msg.payload = order;
 					
+					node.warn("msg.validate " + msg.validate)
+					
 					if(msg.validate != null){
+						validator.order = client.order;
 						validateOrder(validator, node, msg);
 					}else{
 						submitOrder(client, node, msg);
