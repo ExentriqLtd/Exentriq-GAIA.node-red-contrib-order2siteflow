@@ -68,6 +68,13 @@
 				    	msg.payload.secret
 				    );
 				    
+				    //validator doens't work in oneflow
+				    const validator = new OneflowClient(
+				    	"https://pro-api.oneflowcloud.com/api",
+				    	msg.payload.token,
+				    	msg.payload.secret
+				    );
+				    
 				    const destinationName  = msg.payload.destinationName;
 				    const orderData  = { 
 					    sourceOrderId: (msg.payload.prefix ? msg.payload.prefix : "") + msg.payload.code
@@ -176,12 +183,13 @@
 					
 					msg.payload = order;
 					
-					//submits only production orders			    
-				    if(msg.payload.prefix == null){
-					    submitOrder(client, node, msg);
-					 }else{
-						    node.send(msg);
-					    }
+					if(msg.validate != null){
+						validateOrder(validator, node, msg);
+					}else{
+						submitOrder(client, node, msg);
+					}
+					
+					
 	            }
                 //
                 
@@ -190,6 +198,36 @@
         } catch (e) {
 	        node.error("ops, there was an error!", msg);
         }
+    }
+    
+    async function validateOrder(validator, ref, msg){
+	    try {
+		    
+		    if(ref){
+			    ref.warn("validateOrder")
+		    }
+		    
+		var savedOrder = await validator.validateOrder();
+			if(ref){
+				ref.warn("Success");
+				ref.warn("Order ID        :", savedOrder._id);
+				
+			}
+		} catch (err) {
+			if(ref){
+				ref.warn(err);
+				ref.warn("Error " + err.code);
+				ref.warn(err.message);
+				if (err.validations) {
+					err.validations.forEach(validation => {
+						ref.warn(validation.path, " -> ", validation.message);
+					});
+				}
+			}
+	
+		}
+		msg.oneflowResponse = savedOrder;
+		ref.send(msg);
     }
     
     async function submitOrder(client, ref, msg){
@@ -202,6 +240,7 @@
 			}
 		} catch (err) {
 			if(ref){
+				ref.warn(err);
 				ref.warn("Error " + err.code);
 				ref.warn(err.message);
 				if (err.validations) {
