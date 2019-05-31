@@ -1,4 +1,5 @@
  const OneflowClient = require('oneflow-sdk-js');
+ const OneflowClientValidator = require('oneflow-sdk-js-validator');
  
  module.exports = function(RED) {
 
