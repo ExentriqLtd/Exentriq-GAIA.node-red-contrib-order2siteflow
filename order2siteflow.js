@@ -41,15 +41,11 @@
 			                onePageLayout.push(pages[0]);
 			                var itemName = layoutObj.itemName; //at position 0 there is always the mark
 			                
-			                node.warn("Order2SiteFlow itemName " + itemName);
-			                
 			                //for each item, i need the number of copies for page and the number of pages (sheets)
 			                
 			                var pagesToPrint = {pages: pages.length, elements: elements};
 			                
 			                itemsMap[itemName] = pagesToPrint;
-			                
-			                node.warn("Order2SiteFlow input " + itemName + " pagesToPrint " + pages.length+ " elements " + elements.length);
 			                
 			                layoutObj.pages = onePageLayout;
 			                delete layoutObj.name;
@@ -101,9 +97,6 @@
 						}
 					});
 					
-					
-					node.warn("Order2SiteFlow shipping " + shipType.code);
-					
 					var items;
 					if(typeof(msg.payload.order) == "string"){
 						var jsonInput = JSON.parse(msg.payload.order);
@@ -136,16 +129,7 @@
 							fetch = false;
 						}
 						
-						node.warn("Order2SiteFlow path " + path);
-						
-						node.warn("Order2SiteFlow sku " + sku + fetch);
-						
-						
-						
 						const item = order.addItem({ sku, quantity, sourceItemId });
-						
-						node.warn("Order2SiteFlow item.quantity " + item.quantity);
-						node.warn("Order2SiteFlow item.printQuantity " + item.printQuantity);
 						
 						//must be an array of objects
 						var attributes = 
@@ -167,15 +151,11 @@
 							
 							var tot = 0;
 							for(var c =0; c < itemsMap[itemName].elements.length; c++){
-								node.warn("Order2SiteFlow QuantityPerSheetClass " + itemsMap[itemName].elements[c]["class"]);
 								if(itemsMap[itemName].elements[c]["class"] != "Mark"){
 									tot++;
 								}
 							}
 							attributes["QuantityPerSheet"] =  tot;
-							
-							node.warn("Order2SiteFlow QuantityPerSheet " + tot);
-							
 							
 							if(itemObj.material){
 								attributes["Lamination"] = itemObj.material
@@ -222,9 +202,9 @@
 			}
 		} catch (err) {
 			if(ref){
-				ref.warn("Error");
+				ref.warn("Error " + err.code);
 				ref.warn(err.message);
-				if (err.code == 208) {
+				if (err.validations) {
 					err.validations.forEach(validation => {
 						ref.warn(validation.path, " -> ", validation.message);
 					});
@@ -234,10 +214,6 @@
 		}
 		msg.oneflowResponse = savedOrder;
 		ref.send(msg);
-		
-	    /*const res = await client.submitOrder();
-	    if(ref)
-			ref.warn("Order2SiteFlow submitOrder " + res);*/
     }
     
     var packer = null;
@@ -266,9 +242,6 @@
 	
 	function runPacker(clientDetails,itemsArtMap, ref){
 			var allLayouts = [];
-		
-			if(ref)
-				ref.warn("Order2SiteFlow type " + typeof(clientDetails));
 			
 			var items;
 			if(typeof(clientDetails) == "string"){
@@ -277,9 +250,6 @@
 			}else{
 				items = clientDetails.items;
 			}
-			
-			if(ref)
-				ref.warn("Order2SiteFlow items " + items);
 						
 			var count = 1;		
 			for (var itemName in items) {
@@ -288,12 +258,6 @@
 			       //var layout = runPackerCallback(item, itemName,itemsArtMap, ref)
 			       //change to couple of layout, final and cut_file
 			       var layouts = runPackerCallback(item, itemName,itemsArtMap, ref, count)
-			       
-			       if(ref)
-				   	ref.warn("Order2SiteFlow finalArt " + layouts.finalArt);
-				   	
-				   if(ref)
-				   	ref.warn("Order2SiteFlow cutFile " + layouts.cutFile);
 			       
 			       allLayouts.push(layouts.finalArt);
 			       allLayouts.push(layouts.cutFile);
@@ -547,8 +511,6 @@
 		    ref.warn(e);
 	    }
 		res.pages = pages;
-		if(ref)
-			ref.warn(res);
 		
 		res.itemName = itemName;
 		var json = JSON.stringify(res);
@@ -562,10 +524,6 @@
 		cut.assets[itemName] = {
 			      "url": itemsArtMap[itemName]["cut_file"] //item.final
 		      }
-		      
-		if(ref)
-			  	ref.warn("Order2SiteFlow create cut layout " + itemsArtMap[itemName]["cut_file"]);
-
 		      
 		cut.itemName = itemName+ "_cutfile";  
 		var cutJson = JSON.stringify(cut);
