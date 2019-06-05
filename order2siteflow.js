@@ -159,6 +159,11 @@
 							item.printQuantity = itemsMap[itemName].pages;
 							attributes["ItemSheetQuantity"] =  itemsMap[itemName].pages;
 							
+							var overPercent = itemsMap[itemName].pages * 8 /100;
+							if(overPercent < 4){
+								overPercent = 4;
+							}
+							attributes["Overs"] = overPercent;
 							
 							var tot = 0;
 							for(var c =0; c < itemsMap[itemName].elements.length; c++){
@@ -491,15 +496,19 @@
 		        "name": itemName,
 		        "asset": itemName
 		      })
-		        
+		      
+		      var approxNumberOfItemsInPage = parseInt((pageWidthNoMargins/w)*(pageHeightNoMargins/h)/2);
+		      var avoidWaste = true;
+		      
 		      var firstPageIsFull = false; //this is a new option for labelllama: if stickers not fill the page, add more to fill all the page
 		      for(var i=0; i < item.quantity || !firstPageIsFull; i++){
 		        
 		        node = packer.Insert(h, w, packMethod);
 				if(node.height == 0){
 					firstPageIsFull = true;
+					
 					if(i > item.quantity){
-						continue;
+							continue;
 					}
 					
 					//page
@@ -554,6 +563,10 @@
 					node.y = node.y + pageMargin + dotsSpace;
 					
 					pages[pageIndex].elements.push(node);
+					
+					if(avoidWaste && i > item.quantity & i > approxNumberOfItemsInPage){
+						firstPageIsFull = true;
+					}
 					
 				}
 			}
