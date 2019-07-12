@@ -98,21 +98,21 @@
 					var service = "shipping";
 					var alias = null;
 					
-					/*if(shipType.code == "ups-ground-dpi"){
+					if(shipType.code == "ups-ground-dpi"){
 						code = "ups";
 						service = "groundof";
 						alias = shipType.code;
 					}
 					
 					if(shipType.code == "ups-2nddayair-dpi"){
-						code = null;//"ups";
-						service = null;// "2nddayairof";
+						code = "ups";
+						service = "2nddayairof";
 						alias = shipType.code;
 					}
 					
-					if(shipType.code == "ups-3nddayair-dpi"){
+					if(shipType.code == "ups-3dayselect-dpi"){
 						code = "ups";
-						service = "3nddayairof";
+						service = "3dayselectof";
 						alias = shipType.code;
 					}
 					
@@ -120,12 +120,10 @@
 						code = "ups";
 						service = "nextdayairsaverof";
 						alias = shipType.code;
-					}*/
+					}
 					var carrier = {};
-					
-					//if(shipType.code)
-					//carrier.alias = shipType.code;
-					
+					if(shipType.code)
+						carrier.alias = shipType.code;
 					if(service)
 						carrier.service = service;
 					if(code)
