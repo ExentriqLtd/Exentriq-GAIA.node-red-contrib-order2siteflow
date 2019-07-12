@@ -98,7 +98,7 @@
 					var service = "shipping";
 					var alias = null;
 					
-					if(shipType.code == "ups-ground-dpi"){
+					/*if(shipType.code == "ups-ground-dpi"){
 						code = "ups";
 						service = "groundof";
 						alias = shipType.code;
@@ -120,10 +120,12 @@
 						code = "ups";
 						service = "nextdayairsaverof";
 						alias = shipType.code;
-					}
+					}*/
 					var carrier = {};
-					if(shipType.code)
-						carrier.alias = shipType.code;
+					
+					//if(shipType.code)
+					//carrier.alias = shipType.code;
+					
 					if(service)
 						carrier.service = service;
 					if(code)
