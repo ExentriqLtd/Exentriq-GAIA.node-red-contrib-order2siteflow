@@ -105,8 +105,8 @@
 					}
 					
 					if(shipType.code == "ups-2nddayair-dpi"){
-						code = "ups";
-						service = "2nddayairof";
+						code = null;//"ups";
+						service = null;// "2nddayairof";
 						alias = shipType.code;
 					}
 					
@@ -121,6 +121,13 @@
 						service = "nextdayairsaverof";
 						alias = shipType.code;
 					}
+					var carrier = {};
+					if(shipType.code)
+						carrier.alias = shipType.code;
+					if(service)
+						carrier.service = service;
+					if(code)
+						carrier.code = code;
 					
 					order.addShipment({
 						shipTo: {
@@ -130,11 +137,7 @@
 							isoCountry: shipData.country.toUpperCase(),
 							postcode: shipData.zipCode
 						},
-						carrier: {
-							code: code,
-							service: service,
-							alias: alias
-						}
+						carrier: carrier
 					});
 					
 					var items;
