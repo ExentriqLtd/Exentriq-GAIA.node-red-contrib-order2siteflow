@@ -99,26 +99,26 @@
 					var alias = null;
 					
 					if(shipType.code == "ups-ground-dpi"){
-						code = "ups";
-						service = "groundof";
+						code = null,//"ups";
+						service = null,//"groundof";
 						alias = shipType.code;
 					}
 					
 					if(shipType.code == "ups-2nddayair-dpi"){
-						code = "ups";
-						service = "2nddayairof";
+						code = null,//"ups";
+						service = null,//"2nddayairof";
 						alias = shipType.code;
 					}
 					
 					if(shipType.code == "ups-3dayselect-dpi"){
-						code = "ups";
-						service = "3dayselectof";
+						code = null,//"ups";
+						service = null,//"3dayselectof";
 						alias = shipType.code;
 					}
 					
 					if(shipType.code == "ups-nextdayairsaver-dpi"){
-						code = "ups";
-						service = "nextdayairsaverof";
+						code = null,//"ups";
+						service = null,//"nextdayairsaverof";
 						alias = shipType.code;
 					}
 					var carrier = {};
