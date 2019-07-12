@@ -93,6 +93,35 @@
 					var shipData = msg.payload.order["shipping_data"];
 					
 					var shipType = msg.payload.order["shipping_type"];
+					
+					var code = "customer";
+					var service = "shipping";
+					var alias = null;
+					
+					if(shipType.code == "ups-ground-dpi"){
+						code = "ups";
+						service = "groundof";
+						alias = shipType.code;
+					}
+					
+					if(shipType.code == "ups-2nddayair-dpi"){
+						code = "ups";
+						service = "2nddayairof";
+						alias = shipType.code;
+					}
+					
+					if(shipType.code == "ups-3nddayair-dpi"){
+						code = "ups";
+						service = "3nddayairof";
+						alias = shipType.code;
+					}
+					
+					if(shipType.code == "ups-nextdayairsaver-dpi"){
+						code = "ups";
+						service = "nextdayairsaverof";
+						alias = shipType.code;
+					}
+					
 					order.addShipment({
 						shipTo: {
 							name: shipData.firstName + " " + shipData.lastName,
@@ -102,9 +131,9 @@
 							postcode: shipData.zipCode
 						},
 						carrier: {
-							code: "customer",
-							service: "shipping"
-							//alias: shipType.code
+							code: code,
+							service: service,
+							alias: alias
 						}
 					});
 					
