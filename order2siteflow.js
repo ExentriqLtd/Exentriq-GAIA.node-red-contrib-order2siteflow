@@ -429,19 +429,19 @@
 				var dotBottomMiddle ={
 				            "class": "Mark",
 				            "x": (pageWidth - pageMargin*2 - dotWidth - rand)/2,
-				            "y": pageHeight - pageMargin*2 - dotWidth
+				            "y": pageHeight - pageMargin - dotWidth
 				          }
 				
 				var dotBottomLeft ={
 				            "class": "Mark",
 				            "x": pageMargin,
-				            "y": pageHeight - pageMargin*2 - dotWidth - rand
+				            "y": pageHeight - pageMargin - dotWidth - rand
 				          }
 				
 				var dotBottomRight ={
 				            "class": "Mark",
 				            "x": pageWidth - pageMargin*2 - dotWidth - rand,
-				            "y": pageHeight - pageMargin*2 - dotWidth
+				            "y": pageHeight - pageMargin - dotWidth
 				          } 
 				
 				
