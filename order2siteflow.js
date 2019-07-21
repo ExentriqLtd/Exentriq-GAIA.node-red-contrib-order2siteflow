@@ -93,19 +93,6 @@
 					var shipData = msg.payload.order["shipping_data"];
 					
 					var shipType = msg.payload.order["shipping_type"];
-					
-					var code = "customer";
-					var service = "shipping";
-					var alias = null;
-					
-					var carrier = {};
-					if(shipType.code)
-						carrier.alias = shipType.code;
-					if(service)
-						carrier.service = service;
-					if(code)
-						carrier.code = code;
-					
 					order.addShipment({
 						shipTo: {
 							name: shipData.firstName + " " + shipData.lastName,
@@ -114,7 +101,11 @@
 							isoCountry: shipData.country.toUpperCase(),
 							postcode: shipData.zipCode
 						},
-						carrier: carrier
+						carrier: {
+							code: "customer",
+							service: "shipping"
+							//alias: shipType.code
+						}
 					});
 					
 					var items;
@@ -187,7 +178,7 @@
 							}
 							item.addComponent({ code: 'Artwork', path, fetch, "attributes": attributes });
 						}else{
-							item.addComponent({ code: 'Artwork', path, true, "localFile": false });
+							item.addComponent({ code: 'Artwork', path, fetch, "localFile": true });
 						}
 						
 						
@@ -406,19 +397,19 @@
 				var dotBottomMiddle ={
 				            "class": "Mark",
 				            "x": (pageWidth - pageMargin*2 - dotWidth - rand)/2,
-				            "y": pageHeight - pageMargin - dotWidth
+				            "y": pageHeight - pageMargin*2 - dotWidth
 				          }
 				
 				var dotBottomLeft ={
 				            "class": "Mark",
 				            "x": pageMargin,
-				            "y": pageHeight - pageMargin - dotWidth - rand
+				            "y": pageHeight - pageMargin*2 - dotWidth - rand
 				          }
 				
 				var dotBottomRight ={
 				            "class": "Mark",
 				            "x": pageWidth - pageMargin*2 - dotWidth - rand,
-				            "y": pageHeight - pageMargin - dotWidth
+				            "y": pageHeight - pageMargin*2 - dotWidth
 				          } 
 				
 				
