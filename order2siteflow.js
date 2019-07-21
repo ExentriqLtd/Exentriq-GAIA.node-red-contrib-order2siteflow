@@ -98,25 +98,25 @@
 					var service = "shipping";
 					var alias = null;
 					
-					if(shipType.code == "ups-ground-dpi"){
+					if(shipType.code == "ups_ground_dpi"){
 						code = null,//"ups";
 						service = null,//"groundof";
 						alias = shipType.code;
 					}
 					
-					if(shipType.code == "ups-2nddayair-dpi"){
+					if(shipType.code == "ups_2nddayair_dpi"){
 						code = null,//"ups";
 						service = null,//"2nddayairof";
 						alias = shipType.code;
 					}
 					
-					if(shipType.code == "ups-3dayselect-dpi"){
+					if(shipType.code == "ups_3dayselect_dpi"){
 						code = null,//"ups";
 						service = null,//"3dayselectof";
 						alias = shipType.code;
 					}
 					
-					if(shipType.code == "ups-nextdayairsaver-dpi"){
+					if(shipType.code == "ups_nextdayairsaver_dpi"){
 						code = null,//"ups";
 						service = null,//"nextdayairsaverof";
 						alias = shipType.code;
@@ -210,7 +210,7 @@
 							}
 							item.addComponent({ code: 'Artwork', path, fetch, "attributes": attributes });
 						}else{
-							item.addComponent({ code: 'Artwork', path, fetch, "localFile": true });
+							item.addComponent({ code: 'Artwork', path, true, "localFile": false });
 						}
 						
 						
