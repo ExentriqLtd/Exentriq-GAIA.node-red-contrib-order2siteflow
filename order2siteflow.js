@@ -98,25 +98,25 @@
 					var service = "shipping";
 					var alias = null;
 					
-					if(shipType.code == "ups_ground_dpi"){
+					if(shipType.code == "ups-ground-dpi"){
 						code = null,//"ups";
 						service = null,//"groundof";
 						alias = shipType.code;
 					}
 					
-					if(shipType.code == "ups_2nddayair_dpi"){
+					if(shipType.code == "ups-2nddayair-dpi"){
 						code = null,//"ups";
 						service = null,//"2nddayairof";
 						alias = shipType.code;
 					}
 					
-					if(shipType.code == "ups_3dayselect_dpi"){
+					if(shipType.code == "ups-3dayselect-dpi"){
 						code = null,//"ups";
 						service = null,//"3dayselectof";
 						alias = shipType.code;
 					}
 					
-					if(shipType.code == "ups_nextdayairsaver_dpi"){
+					if(shipType.code == "ups-nextdayairsaver-dpi"){
 						code = null,//"ups";
 						service = null,//"nextdayairsaverof";
 						alias = shipType.code;
@@ -210,7 +210,7 @@
 							}
 							item.addComponent({ code: 'Artwork', path, fetch, "attributes": attributes });
 						}else{
-							item.addComponent({ code: 'Artwork', path, true, "localFile": false });
+							item.addComponent({ code: 'Artwork', path, fetch, "localFile": true });
 						}
 						
 						
@@ -429,19 +429,19 @@
 				var dotBottomMiddle ={
 				            "class": "Mark",
 				            "x": (pageWidth - pageMargin*2 - dotWidth - rand)/2,
-				            "y": pageHeight - pageMargin - dotWidth
+				            "y": pageHeight - pageMargin*2 - dotWidth
 				          }
 				
 				var dotBottomLeft ={
 				            "class": "Mark",
 				            "x": pageMargin,
-				            "y": pageHeight - pageMargin - dotWidth - rand
+				            "y": pageHeight - pageMargin*2 - dotWidth - rand
 				          }
 				
 				var dotBottomRight ={
 				            "class": "Mark",
 				            "x": pageWidth - pageMargin*2 - dotWidth - rand,
-				            "y": pageHeight - pageMargin - dotWidth
+				            "y": pageHeight - pageMargin*2 - dotWidth
 				          } 
 				
 				
