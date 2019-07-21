@@ -93,6 +93,42 @@
 					var shipData = msg.payload.order["shipping_data"];
 					
 					var shipType = msg.payload.order["shipping_type"];
+					
+					var code = "customer";
+					var service = "shipping";
+					var alias = null;
+					
+					if(shipType.code == "ups_ground_dpi"){
+						code = null;//"ups";
+						service = null;//"groundof";
+						alias = shipType.code;
+					}
+					
+					if(shipType.code == "ups_2nddayair_dpi"){
+						code = null;//"ups";
+						service = null;//"2nddayairof";
+						alias = shipType.code;
+					}
+					
+					if(shipType.code == "ups_3dayselect_dpi"){
+						code = null;//"ups";
+						service = null;//"3dayselectof";
+						alias = shipType.code;
+					}
+					
+					if(shipType.code == "ups_nextdayairsaver_dpi"){
+						code = null;//"ups";
+						service = null;//"nextdayairsaverof";
+						alias = shipType.code;
+					}
+					var carrier = {};
+					if(shipType.code)
+						carrier.alias = shipType.code;
+					if(service)
+						carrier.service = service;
+					if(code)
+						carrier.code = code;
+					
 					order.addShipment({
 						shipTo: {
 							name: shipData.firstName + " " + shipData.lastName,
@@ -101,11 +137,7 @@
 							isoCountry: shipData.country.toUpperCase(),
 							postcode: shipData.zipCode
 						},
-						carrier: {
-							code: "customer",
-							service: "shipping"
-							//alias: shipType.code
-						}
+						carrier: carrier
 					});
 					
 					var items;
@@ -178,7 +210,8 @@
 							}
 							item.addComponent({ code: 'Artwork', path, fetch, "attributes": attributes });
 						}else{
-							item.addComponent({ code: 'Artwork', path, fetch, "localFile": true });
+							fetch = true;
+							item.addComponent({ code: 'Artwork', path, fetch, "localFile": false });
 						}
 						
 						
@@ -397,19 +430,19 @@
 				var dotBottomMiddle ={
 				            "class": "Mark",
 				            "x": (pageWidth - pageMargin*2 - dotWidth - rand)/2,
-				            "y": pageHeight - pageMargin*2 - dotWidth
+				            "y": pageHeight - pageMargin - dotWidth
 				          }
 				
 				var dotBottomLeft ={
 				            "class": "Mark",
 				            "x": pageMargin,
-				            "y": pageHeight - pageMargin*2 - dotWidth - rand
+				            "y": pageHeight - pageMargin - dotWidth - rand
 				          }
 				
 				var dotBottomRight ={
 				            "class": "Mark",
 				            "x": pageWidth - pageMargin*2 - dotWidth - rand,
-				            "y": pageHeight - pageMargin*2 - dotWidth
+				            "y": pageHeight - pageMargin - dotWidth
 				          } 
 				
 				
