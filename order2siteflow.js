@@ -188,7 +188,7 @@
 							if(itemObj.materialSelect){
 								attributes["Material"] = itemObj.materialSelect;
 							}
-							item.printQuantity = itemsMap[itemName].pages;
+							item.printQuantity = 1;//Jim, 25 july, use always 1 -  itemsMap[itemName].pages;
 							attributes["ItemSheetQuantity"] =  itemsMap[itemName].pages;
 							
 							var overPercent = itemsMap[itemName].pages * 8 /100;
