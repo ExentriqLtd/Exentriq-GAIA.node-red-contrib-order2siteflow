@@ -376,7 +376,7 @@
 				    },
 				    "assets": {
 					    "MarkPic": {
-					        "url": "http://dpisticker.stage.exeq.me/subsites/apps/dpisticker/assets/images/dot.jpg"
+					        "url": "http://labelllama.com/subsites/apps/dpisticker/assets/images/circle.pdf"
 					     }
 					    },
 					"classes": [
