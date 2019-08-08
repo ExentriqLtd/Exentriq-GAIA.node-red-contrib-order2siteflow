@@ -135,7 +135,9 @@
 							address1: shipData.street1,
 							town: shipData.city,
 							isoCountry: shipData.country.toUpperCase(),
-							postcode: shipData.zipCode
+							postcode: shipData.zipCode,
+							state: shipData.state.toUpperCase(),
+							phone: shipData.phone
 						},
 						carrier: carrier
 					});
