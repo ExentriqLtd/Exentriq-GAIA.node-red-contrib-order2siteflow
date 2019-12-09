@@ -137,7 +137,8 @@
 							isoCountry: shipData.country.toUpperCase(),
 							postcode: shipData.zipCode,
 							state: shipData.state.toUpperCase(),
-							phone: shipData.phone
+							phone: shipData.phone,
+							companyName: shipData.companyName || ""
 						},
 						carrier: carrier
 					});
