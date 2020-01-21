@@ -23,6 +23,8 @@
 		        		itemsArtMap[items[i].key] = obj;
 	        		}
 	        		
+	        		console.log("prepare layouts");
+	        		
 	                var tmpLayouts = runPacker(msg.payload.clientDetails, itemsArtMap, node);
 	                
 	                
@@ -333,6 +335,7 @@
 	}
 	
 	function runPacker(clientDetails,itemsArtMap, ref){
+		console.log("run packer");
 			var allLayouts = [];
 			
 			var items;
@@ -1034,7 +1037,6 @@
 					bestNode.width = width;
 					bestNode.height = height;
 					bestNode.rotation = 0;
-					console.log("not rotate")
 					bestShortSideFit.val = shortSideFit;
 					bestLongSideFit.val = longSideFit;
 				}
@@ -1085,7 +1087,6 @@
 					bestNode.width = width;
 					bestNode.height = height;
 					bestNode.rotation = 0;
-					console.log("not rotate")
 					bestShortSideFit.val = shortSideFit;
 					bestLongSideFit.val = longSideFit;
 				}
@@ -1142,7 +1143,6 @@
 					bestNode.rotation = 0;
 					bestShortSideFit.val = shortSideFit;
 					bestAreaFit.val = areaFit;
-					console.log("not rotate")
 				}
 			}
 	
