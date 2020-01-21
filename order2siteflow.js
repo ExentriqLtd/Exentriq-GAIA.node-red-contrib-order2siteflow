@@ -512,7 +512,8 @@
 		
 		      //var item = items[itemName];
 		      var size = item.size;
-		      
+		      console.log("size " + size);
+					
 		      var fileName = itemsArtMap[itemName]["final_art"];
 			  //add die cut condition
 			  if(true){
@@ -521,7 +522,7 @@
 					  size = fileParts[1]; 
 				  }
 			  }
-		      
+		      console.log("size from filename " + size);
 		      var w = parseFloat(size.split("x")[0].replace("\"",""));
 			  var h = parseFloat(size.split("x")[1].replace("\"",""));
 			  
@@ -988,7 +989,6 @@
 					bestNode.width = width;
 					bestNode.height = height;
 					bestNode.rotation = 0;
-					console.log("not rotate")
 					bestY.val = topSideY;
 					bestX.val = this.freeRectangles[i].x;
 				}
@@ -1003,7 +1003,6 @@
 					bestNode.width = height;
 					bestNode.height = width;
 					bestNode.rotation = 90;
-					console.log("rotate")
 					bestY.val = topSideY;
 					bestX.val = this.freeRectangles[i].x;
 				}
@@ -1055,7 +1054,6 @@
 					bestNode.width = height;
 					bestNode.height = width;
 					bestNode.rotation = 90;
-					console.log("rotate")
 					bestShortSideFit.val = flippedShortSideFit;
 					bestLongSideFit.val = flippedLongSideFit;
 				}
@@ -1107,7 +1105,6 @@
 					bestNode.width = height;
 					bestNode.height = width;
 					bestNode.rotation = 90;
-					console.log("rotate")
 					bestShortSideFit.val = shortSideFit;
 					bestLongSideFit.val = longSideFit;
 				}
@@ -1162,7 +1159,6 @@
 					bestNode.width = height;
 					bestNode.height = width;
 					bestNode.rotation = 90;
-					console.log("rotate")
 					bestShortSideFit.val = shortSideFit;
 					bestAreaFit.val = areaFit;
 				}
@@ -1219,7 +1215,6 @@
 					bestNode.width = width;
 					bestNode.height = height;
 					bestNode.rotation = 0;
-					console.log("not rotate")
 					bestContactScore.val = score;
 				}
 			}
@@ -1233,7 +1228,6 @@
 					bestNode.width = height;
 					bestNode.height = width;
 					bestNode.rotation = 90;
-					console.log("rotate")
 					bestContactScore.val = score;
 				}
 			}
