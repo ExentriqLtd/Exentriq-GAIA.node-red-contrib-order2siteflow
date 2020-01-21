@@ -512,8 +512,20 @@
 		
 		      //var item = items[itemName];
 		      var size = item.size;
+		      
+		      var fileName = itemsArtMap[itemName]["final_art"];
+			  //add die cut condition
+			  if(true){
+				  var fileParts = fileName.split("_");
+				  if(fileParts && fileParts.length > 1){
+					  size = fileParts[1]; 
+				  }
+			  }
+		      
 		      var w = parseFloat(size.split("x")[0].replace("\"",""));
 			  var h = parseFloat(size.split("x")[1].replace("\"",""));
+			  
+			  
 			  
 			  w += 0.125
 			  h += 0.125
@@ -522,7 +534,7 @@
 			  w+=cutLinesSpace;
 		      
 		      res.assets[itemName] = {
-			      "url": itemsArtMap[itemName]["final_art"] //item.final
+			      "url": fileName //item.final
 		      }
 		      res.classes.push({
 		        "height": h,
