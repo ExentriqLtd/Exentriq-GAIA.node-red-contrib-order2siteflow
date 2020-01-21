@@ -516,10 +516,11 @@
 		      //var item = items[itemName];
 		      var size = item.size;
 		      console.log("size " + size);
+		      console.log("item.type " + item.type);
 					
 		      var fileName = itemsArtMap[itemName]["final_art"];
 			  //add die cut condition
-			  if(true){
+			  if(item.type == "Die Cut Stickers"){
 				  var fileParts = fileName.split("_");
 				  if(fileParts && fileParts.length > 1){
 					  size = fileParts[1]; 
@@ -529,7 +530,8 @@
 		      var w = parseFloat(size.split("x")[0].replace("\"",""));
 			  var h = parseFloat(size.split("x")[1].replace("\"",""));
 			  
-			  
+			  console.log("w " + w);
+			  console.log("h " + h);
 			  
 			  w += 0.125
 			  h += 0.125
