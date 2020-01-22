@@ -519,6 +519,9 @@
 		      console.log("item.type " + item.type);
 			  var w = null;
 			  var h = null;	
+			  //note that dpi uses this notation for sizes: hxw
+						  
+						  
 		      var fileName = itemsArtMap[itemName]["final_art"];
 			 
 			  //add die cut condition
@@ -528,9 +531,8 @@
 					  var fileParts = fileName.split("_");
 					  if(fileParts && fileParts.length > 1){
 						  var tmpSize = fileParts[1]; 
-						  //note that dpi uses a different notation for sizes (hxw)
-						  w = parseFloat(tmpSize.split("x")[1].replace("\"",""));
-						  h = parseFloat(tmpSize.split("x")[0].replace("\"",""));
+						  h = parseFloat(tmpSize.split("x")[1].replace("\"",""));
+						  w = parseFloat(tmpSize.split("x")[0].replace("\"",""));
 					  }
 				  }
 			  }catch(e){
