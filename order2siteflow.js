@@ -524,6 +524,7 @@
 			  //add die cut condition
 			  try{
 				  if(item.type == "Die Cut Stickers"){
+					  console.log("DIE CUT, get size from name " + fileName);
 					  var fileParts = fileName.split("_");
 					  if(fileParts && fileParts.length > 1){
 						  var tmpSize = fileParts[1]; 
