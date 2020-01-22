@@ -517,18 +517,30 @@
 		      var size = item.size;
 		      console.log("size " + size);
 		      console.log("item.type " + item.type);
-					
+			  var w = null;
+			  var h = null;	
 		      var fileName = itemsArtMap[itemName]["final_art"];
+			 
 			  //add die cut condition
-			  if(item.type == "Die Cut Stickers"){
-				  var fileParts = fileName.split("_");
-				  if(fileParts && fileParts.length > 1){
-					  size = fileParts[1]; 
+			  try{
+				  if(item.type == "Die Cut Stickers"){
+					  var fileParts = fileName.split("_");
+					  if(fileParts && fileParts.length > 1){
+						  var tmpSize = fileParts[1]; 
+						  //note that dpi uses a different notation for sizes (hxw)
+						  w = parseFloat(tmpSize.split("x")[1].replace("\"",""));
+						  h = parseFloat(tmpSize.split("x")[0].replace("\"",""));
+					  }
 				  }
+			  }catch(e){
+				  console.log("DIE CUT, cannot get size from name " + fileName);
 			  }
+			  
 		      console.log("size from filename " + size);
-		      var w = parseFloat(size.split("x")[0].replace("\"",""));
-			  var h = parseFloat(size.split("x")[1].replace("\"",""));
+		      if(w == null)
+			      w = parseFloat(size.split("x")[0].replace("\"",""));
+			  if(h == null)
+				  h = parseFloat(size.split("x")[1].replace("\"",""));
 			  
 			  console.log("w " + w);
 			  console.log("h " + h);
