@@ -526,7 +526,7 @@
 			 
 			  //add die cut condition
 			  try{
-				  if(item.type == "Die Cut Stickers"){
+				  if(item.type == "Die Cut Stickers" || item.type == "Stickers Sheets" || item.type == "Kiss Cut Stickers"){
 					  console.log("DIE CUT, get size from name " + fileName);
 					  var fileParts = fileName.split("_");
 					  if(fileParts && fileParts.length > 1){
