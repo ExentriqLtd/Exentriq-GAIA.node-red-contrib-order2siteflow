@@ -190,12 +190,13 @@
 						
 						
 						if(fetch){
-							if(itemObj.materialSelect){
-								attributes["Material"] = itemObj.materialSelect;
+							
+							if(itemObj.customAttributes){
+								attributes = itemObj.customAttributes;
 							}
 							
-							if(itemObj.dieShape){
-								attributes["DieShape"] = itemObj.dieShape;
+							if(itemObj.materialSelect){
+								attributes["Material"] = itemObj.materialSelect;
 							}
 							
 							item.printQuantity = 1;//Jim, 25 july, use always 1 -  itemsMap[itemName].pages;
