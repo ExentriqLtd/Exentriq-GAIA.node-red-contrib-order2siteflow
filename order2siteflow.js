@@ -329,6 +329,8 @@
 	var cutLinesSpace = 0.25
 	var pageTotalMargin = pageMargin*2;
 	
+	var bleed = 0.250;// 0.125;
+	
 	var dotWidth = 0.1875;
 	var dotsSpace = dotWidth*2;// + cutLinesSpace; //we need to reserve a space in the printable area that is just for dots
 			
@@ -560,8 +562,8 @@
 			  console.log("w " + w);
 			  console.log("h " + h);
 			  
-			  w += 0.125
-			  h += 0.125
+			  w += bleed
+			  h += bleed
 			  
 			  h+=cutLinesSpace;
 			  w+=cutLinesSpace;
