@@ -87,6 +87,10 @@
 					    };
 				    const order = client.createOrder(destinationName, orderData);
 				    
+				    if(msg.payload.sourceID){
+						order.destination.source = msg.payload.sourceID;
+					}
+				    
 				    var itemsMap = msg.payload.itemsMap; //where are stored the number of pages to print for each item
 				    
 				    
@@ -233,6 +237,8 @@
 						}
 						}
 					}
+					
+					
 					
 					msg.payload = order;
 					
