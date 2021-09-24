@@ -177,7 +177,14 @@
 						var fetch = true;
 						
 						if(sku.match("manual")){
-							path = msg.payload.serverName + itemObj.upload;
+							
+							/* if user never uploaded a file, the artwork is taken from FTP final folder */
+							if(!itemObj.upload){
+								path = msg.payload.ftpGetFile + itemObj.path + "/" + itemObj.finalAssetReady;
+							}else{
+								path = msg.payload.serverName + itemObj.upload;
+							}
+							
 							fetch = false;
 						}
 						
