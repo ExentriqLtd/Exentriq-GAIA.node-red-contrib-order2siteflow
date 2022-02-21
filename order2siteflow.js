@@ -25,7 +25,7 @@
 	        		
 	        		console.log("prepare layouts");
 	        		
-	                var tmpLayouts = runPacker(msg.payload.clientDetails, itemsArtMap, node);
+	                var tmpLayouts = runPacker(msg.payload.clientDetails, itemsArtMap, node, msg.payload.useGroup);
 	                
 	                
 	                if(msg.payload.singlepagelayout != null){
@@ -355,7 +355,7 @@
 		return input/scale;
 	}
 	
-	function runPacker(clientDetails,itemsArtMap, ref){
+	function runPacker(clientDetails,itemsArtMap, ref, useGroup){
 		console.log("run packer");
 			var allLayouts = [];
 			
@@ -373,7 +373,7 @@
 			       var item = items[itemName];
 			       //var layout = runPackerCallback(item, itemName,itemsArtMap, ref)
 			       //change to couple of layout, final and cut_file
-			       var layouts = runPackerCallback(item, itemName,itemsArtMap, ref, count)
+			       var layouts = runPackerCallback(item, itemName,itemsArtMap, ref, count, useGroup)
 			       
 			       allLayouts.push(layouts.finalArt);
 			       allLayouts.push(layouts.cutFile);
@@ -384,10 +384,14 @@
 			return allLayouts;
 	}
 	
-	function runPackerCallback(item, itemName, itemsArtMap, ref, count){	
+	function runPackerCallback(item, itemName, itemsArtMap, ref, count, useGroup){	
+		
+			var useGroupTmp = useGroup || true;
+		
 			var res = {
 					"defaults": {
 				      "units": unit,//"mm",
+				      "useGroup": useGroupTmp,//"default true", param used to avoid layer separation (21/02/2022)
 				      "page": {
 				        "size": {
 				          "height": pageHeight,
