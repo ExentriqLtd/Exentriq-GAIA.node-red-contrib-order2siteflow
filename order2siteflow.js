@@ -272,6 +272,7 @@
 					
 					if(msg.validate != null){
 						//validateOrder(client, node, msg);
+						node.send(msg);
 					}else{
 						//submitOrder(client, node, msg);
 					}
