@@ -260,6 +260,11 @@
 							item.addComponent({ code: 'Custom_Box', path: itemObj["custom_box"] , fetch });
 						}
 						
+						if(sku.match("puzzle")){
+							
+							item.addComponent({ code: 'Puzzle', path:  (msg.payload.ftpGetFile + itemObj.path + "/" + itemObj.finalAssetReady) , fetch });
+						}
+						
 						
 						}
 					}
