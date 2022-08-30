@@ -256,7 +256,7 @@
 							item.addComponent({ code: 'Cut_File', path: cutFilePath , fetch });
 						}
 						
-						if(itemObj["custom_box"]; != null){
+						if(itemObj["custom_box"] != null){
 							item.addComponent({ code: 'Custom_Box', path: itemObj["custom_box"] , fetch });
 						}
 						
