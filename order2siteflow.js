@@ -191,7 +191,7 @@
 						
 						var fetch = true;
 						
-						if(sku.match("manual")){
+						if(sku.match("manual") || sku.match("puzzle")){
 							
 							/* if user never uploaded a file, the artwork is taken from FTP final folder */
 							if(!itemObj.upload){
