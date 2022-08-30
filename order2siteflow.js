@@ -15,20 +15,33 @@
 	        		var items = msg.payload.items;
 	        		var itemsArtMap = {};
 	        		
+	        		var hasPuzzle = false;
 	        		for(var i=0; i < items.length; i++){
 		        		var obj = {
 			        		final_art : msg.payload.ftpGetFile + items[i].path + "/" + items[i].finalAssetReady,
 			        		cut_file : msg.payload.ftpGetFile + items[i].cutfile + "/" + items[i].cutFileReady
 		        		}
+		        		if(items[i]["custom_box"]){
+			        		obj["custom_box"] = items[i]["custom_box"];
+			        		hasPuzzle = true;
+		        		}
+		        		
 		        		itemsArtMap[items[i].key] = obj;
 	        		}
 	        		
 	        		console.log("prepare layouts");
 	        		
-	                var tmpLayouts = runPacker(msg.payload.clientDetails, itemsArtMap, node, msg.payload.useGroup);
+	                var tmpLayouts = null;
 	                
+	                if(!hasPuzzle)
+		                tmpLayouts = runPacker(msg.payload.clientDetails, itemsArtMap, node, msg.payload.useGroup);
+	                else{
+		                msg.payload.itemsMap = itemsArtMap;
+	                }
 	                
-	                if(msg.payload.singlepagelayout != null){
+	                if(hasPuzzle){
+		                
+	                }else if(msg.payload.singlepagelayout != null){
 		               //9 april 2019: dpi decided to have only one pages layout and to get the number of copies to print
 		               
 		               var itemsMap = {};
@@ -239,9 +252,15 @@
 						
 						var cutFilePath = path + "_cutfile";
 						
-						if(sku.match("manual") == null){
+						if(sku.match("manual") == null && sku.match("puzzle") == null){
 							item.addComponent({ code: 'Cut_File', path: cutFilePath , fetch });
 						}
+						
+						if(itemObj["custom_box"]; != null){
+							item.addComponent({ code: 'Custom_Box', path: itemObj["custom_box"] , fetch });
+						}
+						
+						
 						}
 					}
 					
@@ -252,9 +271,9 @@
 					node.warn("msg.validate " + msg.validate)
 					
 					if(msg.validate != null){
-						validateOrder(client, node, msg);
+						//validateOrder(client, node, msg);
 					}else{
-						submitOrder(client, node, msg);
+						//submitOrder(client, node, msg);
 					}
 					
 					
