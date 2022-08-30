@@ -143,7 +143,7 @@
 						}
 					}
 					var carrier = {};
-					if(shipType.code)
+					if(shipType && shipType.code)
 						carrier.alias = shipType.code;
 					if(service)
 						carrier.service = service;
