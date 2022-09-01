@@ -278,10 +278,11 @@
 					node.warn("msg.validate " + msg.validate)
 					
 					if(msg.validate != null){
-						//validateOrder(client, node, msg);
+						validateOrder(client, node, msg);
 						node.send(msg);
+						submitOrder(client, node, msg);
 					}else{
-						//submitOrder(client, node, msg);
+						submitOrder(client, node, msg);
 					}
 					
 					
