@@ -87,7 +87,7 @@
 				    );
 		             }else{
 			             client = new OneflowClient(
-				    	"https://orders.oneflow.io/api",
+				    	"https://orders.oneflow.io/api" + msg.route,
 				    	msg.payload.token,
 				    	msg.payload.secret
 				    );
