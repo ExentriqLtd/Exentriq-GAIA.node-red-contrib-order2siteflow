@@ -87,7 +87,7 @@
 				    );
 		             }else{
 			             client = new OneflowClient(
-				    	"https://orders.oneflow.io/api" + msg.route,
+				    	"https://orders.oneflow.io/api",// + msg.route,
 				    	msg.payload.token,
 				    	msg.payload.secret
 				    );
@@ -329,9 +329,13 @@
     async function submitOrder(client, ref, msg){
 	    
 	    msg.submitResult = "none";
+	    ref.warn("Try to submit order");
+	    if(msg.route){
+		    ref.warn("Route: " + msg.route);
+	    }
 	    
 	    try {
-		var savedOrder = await client.submitOrder();
+		var savedOrder = await client.submitOrder({routingRule : msg.route});
 		if(ref){
 			msg.submitResult = "success";
 				ref.warn("Success");
