@@ -335,7 +335,7 @@
 	    }
 	    
 	    try {
-		var savedOrder = await client.submitOrder({routingRule : msg.route});
+		var savedOrder = await client.submitOrder({routingRule : msg.route}, ref);
 		if(ref){
 			msg.submitResult = "success";
 				ref.warn("Success");
