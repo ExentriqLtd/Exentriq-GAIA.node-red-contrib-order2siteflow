@@ -8,7 +8,7 @@
     ],
     "dependencies": {
         "avsc": "*",
-        "oneflow-sdk-js": "^2.0.9"
+        "oneflow-sdk-js": "^2.1.0"
     },
     "node-red": {
         "nodes": {
